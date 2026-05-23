@@ -276,7 +276,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &376704964
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -289,56 +289,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c3ca972dc1c9144c882daf759ba21fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  playerMovement:
-    m_Name: Player Movement
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: b015dbae-781b-424d-a6b9-b7ef884c168e
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings:
-    - m_Name: Move
-      m_Id: 4a888f13-54a0-438e-b523-826443f83c3f
-      m_Path: 2DVector
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Player Movement
-      m_Flags: 4
-    - m_Name: up
-      m_Id: b74ee3f7-4240-423d-a6ad-1b730aa9a2c1
-      m_Path: <Keyboard>/w
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Player Movement
-      m_Flags: 8
-    - m_Name: down
-      m_Id: d957d217-10b9-4b2f-a33d-b964bdbece4e
-      m_Path: <Keyboard>/s
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Player Movement
-      m_Flags: 8
-    - m_Name: left
-      m_Id: 060febbc-948a-4fb6-9362-3bce24f83d46
-      m_Path: <Keyboard>/a
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Player Movement
-      m_Flags: 8
-    - m_Name: right
-      m_Id: b13d6b04-830f-492c-8874-b8a7c6a6a1b4
-      m_Path: <Keyboard>/d
-      m_Interactions: 
-      m_Processors: 
-      m_Groups: 
-      m_Action: Player Movement
-      m_Flags: 8
-    m_Flags: 0
   speed: 10
+  jumpForce: 5
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
