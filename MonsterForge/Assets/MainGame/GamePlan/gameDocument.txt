@@ -1,0 +1,36 @@
+I woke up to the sounds of metal hitting metal. The first sensation I felt was pure heat. I was in a room made entirely of stone. 
+A man in a large leather apron and brown pants stood near the heat source. 
+He was forging metal, I realized. A sword. The man glanced at me, brandishing a small dagger.
+ 	"You’re awake. Good. Take this." As he slides the weapon across the ground to me.
+The dagger glided towards me, I grasped the hilt and turned it in my hand. The blacksmith must have seen my puzzled expression.
+ 	 “Name’s Burow. Found you unconscious [somewhere]. There are monsters outside the door, go deal with them.”
+I hurriedly made my way towards the door. I see the face of monsters appearing.
+Faces looking grotesque.
+Eyes, gleaming in the dark, lit up with hateful stares.
+I slash my way into them, killing all.  Took me half an hour. I went back, the door was ajar, almost like the door knew I was coming back.
+The blacksmith was waiting.
+Wordlessly, he hands me the sword. Then he nods.
+ “You’re ready.
+Ready to get rid of the filth that plagues this world.
+Good luck, oh Chosen one.”
+
+END OF DEMO.
+
+
+
+Sub-theme: Player kills  monsters . He is the monster.
+The  blacksmith  is fake. A hallucination if you will.
+
+
+
+Burow:
+ 	A grumpy blacksmith. Happy to provide players with a selection of weapons.
+
+Enemies can die with three hits but will have similar  glory kills like in doom. Maybe too much for now? focus on simple stuff.
+
+
+
+
+Game Plan:
+    Done basic player movement.
+    simple dagger? But instead of a thrust, it'll be a slash, mouse aimed.
