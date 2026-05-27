@@ -577,8 +577,9 @@ GameObject:
   - component: {fileID: 1078728996}
   - component: {fileID: 1078728995}
   - component: {fileID: 1078728994}
-  m_Layer: 6
-  m_Name: Square
+  - component: {fileID: 1078728997}
+  m_Layer: 0
+  m_Name: BlackSmith (Burow)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -680,7 +681,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.754717, g: 0.48442408, b: 0.31565198, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -698,12 +699,28 @@ Transform:
   m_GameObject: {fileID: 1078728993}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.31, y: -2.77, z: 0}
-  m_LocalScale: {x: 1, y: 2.5234, z: 1}
+  m_LocalPosition: {x: -7.35, y: -3.26, z: 0}
+  m_LocalScale: {x: 1.7971, y: 1.7714269, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1078728997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1078728993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b2dc3d3f7765a8a429b908b35d90ae4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
+  weapon:
+  - {fileID: 11400000, guid: f1a18ac901ecad14db08e43d8d211176, type: 2}
+  - {fileID: 11400000, guid: 4a72fca9272e688489c7c59268e710d6, type: 2}
+  - {fileID: 11400000, guid: 2d990b02f0a5e4a44980e4e521a59c06, type: 2}
 --- !u!1 &1187480750
 GameObject:
   m_ObjectHideFlags: 0
