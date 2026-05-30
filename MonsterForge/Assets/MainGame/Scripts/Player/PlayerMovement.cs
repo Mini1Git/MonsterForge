@@ -84,7 +84,7 @@ public class PlayerMovement : MonoBehaviour
             Debug.Log("JUMP");
         
             rb.linearVelocityY = jumpForce;
-            // now gotta check if on ground lol. Raycast down?
+            
         }
         
 
