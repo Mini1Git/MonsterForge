@@ -4,29 +4,36 @@ using UnityEngine.EventSystems;
 public class Mouse_Interact_Weapons : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IPointerUpHandler
 {
     SpriteRenderer sr;
-    Color og;
     Weapons_Picker weaponPicker;
+    Material outlineMat;
+    private void Awake()
+    {
+        
+    }
     private void Start()
     {
         weaponPicker = GameObject.FindGameObjectWithTag("weaponContainer").GetComponent<Weapons_Picker>();
         sr = gameObject.GetComponent<SpriteRenderer>();
-        og = sr.color;
+
+        outlineMat = gameObject.GetComponent<SpriteRenderer>().material;
+        outlineMat.SetVector("_outlineThickness", new Vector2(0f,0f));
+
+       
     }
     public void OnPointerEnter(PointerEventData eventData)
     {
-        sr.color = Color.yellow;
-        
+        outlineMat.SetVector("_outlineThickness", new Vector2(0.02f, 0f));
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        sr.color = og;
-        
+        outlineMat.SetVector("_outlineThickness", new Vector2(0f, 0f));
+
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        sr.color = Color.red;
+        outlineMat.SetColor("_outlineColour",Color.green);
     }
 
     public void OnPointerUp(PointerEventData eventData)

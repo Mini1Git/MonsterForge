@@ -64,10 +64,6 @@ public class dialogueBurow : MonoBehaviour
         {
             goNextDialogue();
         }
-        else
-        {
-            //maybe smt else?
-        }
     }
 
     public void goNextDialogue()
@@ -76,7 +72,7 @@ public class dialogueBurow : MonoBehaviour
         
         if (i >= dialogueMaxSize) // basically, if reach the end of dialogue, then burow will display weapons.
         {
-            this.GetComponent<BoxCollider2D>().enabled = false;
+            this.GetComponent<BoxCollider2D>().enabled = false; // disables the trigger, so no new dialogues can be forced. Also nulls the prompt.
             Debug.Log("DISPLAYING WEAPONS");
             displayWeapons();
             textSource_Dialogue.text = "Choose a weapon...";

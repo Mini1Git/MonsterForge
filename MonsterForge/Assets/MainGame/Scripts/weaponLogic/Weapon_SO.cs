@@ -5,6 +5,7 @@ public class Weapon_SO : ScriptableObject
 {
     
     string weaponName;
+    public GameObject prefab;
     public string attackType;
     public int damage;
     public Sprite icon;
@@ -12,6 +13,7 @@ public class Weapon_SO : ScriptableObject
     
     public void Awake()
     {
+        
         weaponName = name;
     }
 

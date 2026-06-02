@@ -11,19 +11,20 @@ public class Weapons_Picker : MonoBehaviour
 
     public string chosenWeapon = null;
     public bool choseAWeapon;
+    public Material weaponMaterial;
     private void Start()
     {
         foreach (var weapon in weapons_SO)
         {
-            GameObject weaponGameObject = new GameObject(weapon.name);
-            weaponGameObject.AddComponent<SpriteRenderer>().sprite = weapon.icon;
-            weaponGameObject.transform.position = GameObject.FindGameObjectWithTag(weapon.name + "Location").transform.position;
+            GameObject weaponGameObject = Instantiate(weapon.prefab);
+            weaponGameObject.GetComponent<SpriteRenderer>().sprite = weapon.icon;
+            GameObject tagged = GameObject.FindGameObjectWithTag(weapon.name + "Location"); // gets location of all of the weapons (provided they have tag)
+            weaponGameObject.transform.position = tagged.transform.position;
             //parent
-            weaponGameObject.transform.SetParent(GameObject.FindGameObjectWithTag(weapon.name + "Location").transform);
+            weaponGameObject.transform.SetParent(tagged.transform);
 
-            weaponGameObject.AddComponent<BoxCollider2D>().isTrigger = true;
-            weaponGameObject.GetComponent<BoxCollider2D>().size = new Vector2(1.2f, 1.2f);
-            weaponGameObject.AddComponent<Mouse_Interact_Weapons>();
+       
+           
             
 
             weapons.Add(weaponGameObject);
