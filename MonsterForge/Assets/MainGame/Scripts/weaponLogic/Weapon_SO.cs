@@ -9,6 +9,8 @@ public class Weapon_SO : ScriptableObject
     public string attackType;
     public int damage;
     public Sprite icon;
+    public AnimationClip idleAnimation;
+    public AnimationClip walkAnimation;
     public AnimationClip attackAnimation;
     
     public void Awake()

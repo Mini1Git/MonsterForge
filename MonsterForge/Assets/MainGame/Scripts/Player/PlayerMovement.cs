@@ -5,24 +5,30 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     public PlayerInput playerInput;
+    
+    public float speed = 10;
+    public float jumpForce = 100;
+    [SerializeField] LayerMask LayerGround;
+
     InputAction move;
     InputAction jump;
     float extendedBoxDown = 0.2f;
-    public float speed = 10;
-    public float jumpForce = 100;
-    Rigidbody2D rb;
     float moveDir = 0;
+
+    Rigidbody2D rb;
     BoxCollider2D boxCollider;
-    [SerializeField] LayerMask LayerGround;
+    Animator animator;
+    
     bool isFacingRight = true;
     
     private void Awake()
     {
+        
         playerInput = new PlayerInput();
     }
     void Start()
     {
-        
+        animator = GetComponent<Animator>();
         rb = this.GetComponent<Rigidbody2D>();
         boxCollider = this.GetComponent<BoxCollider2D>();
     }
@@ -75,6 +81,13 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         rb.linearVelocityX = moveDir * speed;
+        if (rb.linearVelocityX == 0)
+        {
+            animator.SetBool("move_Bool", false);
+        }
+        else {
+            animator.SetBool("move_Bool", true);
+        }
     }
 
     public void Jump(InputAction.CallbackContext context)

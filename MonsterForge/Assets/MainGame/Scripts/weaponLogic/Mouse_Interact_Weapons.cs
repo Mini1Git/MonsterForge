@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 
 public class Mouse_Interact_Weapons : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler, IPointerUpHandler
 {
-    SpriteRenderer sr;
+    public Weapon_SO weaponInfo;
     Weapons_Picker weaponPicker;
     Material outlineMat;
     private void Awake()
@@ -13,7 +13,7 @@ public class Mouse_Interact_Weapons : MonoBehaviour, IPointerEnterHandler, IPoin
     private void Start()
     {
         weaponPicker = GameObject.FindGameObjectWithTag("weaponContainer").GetComponent<Weapons_Picker>();
-        sr = gameObject.GetComponent<SpriteRenderer>();
+        
 
         outlineMat = gameObject.GetComponent<SpriteRenderer>().material;
         outlineMat.SetVector("_outlineThickness", new Vector2(0f,0f));

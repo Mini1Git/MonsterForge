@@ -10,8 +10,9 @@ public class Weapons_Picker : MonoBehaviour
     public List<GameObject> weapons;
 
     public string chosenWeapon = null;
+    public Weapon_SO weaponEquipped;
     public bool choseAWeapon;
-    public Material weaponMaterial;
+    
     private void Start()
     {
         foreach (var weapon in weapons_SO)
@@ -21,11 +22,7 @@ public class Weapons_Picker : MonoBehaviour
             GameObject tagged = GameObject.FindGameObjectWithTag(weapon.name + "Location"); // gets location of all of the weapons (provided they have tag)
             weaponGameObject.transform.position = tagged.transform.position;
             //parent
-            weaponGameObject.transform.SetParent(tagged.transform);
-
-       
-           
-            
+     
 
             weapons.Add(weaponGameObject);
 
@@ -40,6 +37,7 @@ public class Weapons_Picker : MonoBehaviour
         {
             StartCoroutine(choseWeapon());
             Debug.Log("You chose the " + chosenWeapon);
+            choseAWeapon = false; // so it only plays once.
             // now give the player a idle animation with the weapon.
         }
     }
@@ -52,6 +50,7 @@ public class Weapons_Picker : MonoBehaviour
             {
                 if (weapon.name == chosenWeapon)
                 {
+                    weaponEquipped = weapon.GetComponent<Mouse_Interact_Weapons>().weaponInfo; // weaponEquipped is weaponSO
                     continue;
                 }
                 weapon.SetActive(false);

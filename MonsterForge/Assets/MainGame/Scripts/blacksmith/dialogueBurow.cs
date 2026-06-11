@@ -17,15 +17,19 @@ public class dialogueBurow : MonoBehaviour
     InputAction interact;
     bool startedDialogue = false;
     bool reachedEndOfDialogue = false;
+    
     public void Awake()
     {
+        
+        
         playerInput = new PlayerInput(); //needs to be on awake because OnEnable activates as soon as the object becomes active and start() is too late.
+                                         //deactivates the weapon container, because we only activate it when Burow shows weapons.
+        weaponContainer = GameObject.FindGameObjectWithTag("weaponContainer");
+        weaponContainer.SetActive(false);
     }
     public void Start()
     {
-       //deactivatese the weapon container, because we only activate it when Burow shows weapons.
-       weaponContainer = GameObject.FindGameObjectWithTag("weaponContainer");
-       weaponContainer.SetActive(false);
+       
 
         textSource_Dialogue.text = null;
         textSource_InteractPrompt.text = null;

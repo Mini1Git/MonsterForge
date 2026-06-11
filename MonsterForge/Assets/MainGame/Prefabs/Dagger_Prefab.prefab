@@ -151,3 +151,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 529f5350b97e968478859ad28fffcb8b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Mouse_Interact_Weapons
+  weaponInfo: {fileID: 11400000, guid: f1a18ac901ecad14db08e43d8d211176, type: 2}
