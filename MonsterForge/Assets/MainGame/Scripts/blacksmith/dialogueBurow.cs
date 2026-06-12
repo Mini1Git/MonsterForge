@@ -17,7 +17,7 @@ public class dialogueBurow : MonoBehaviour
     InputAction interact;
     bool startedDialogue = false;
     bool reachedEndOfDialogue = false;
-    
+    Animator animator;
     public void Awake()
     {
         
@@ -29,7 +29,7 @@ public class dialogueBurow : MonoBehaviour
     }
     public void Start()
     {
-       
+        animator = GetComponent<Animator>();
 
         textSource_Dialogue.text = null;
         textSource_InteractPrompt.text = null;
@@ -50,11 +50,13 @@ public class dialogueBurow : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        animator.SetBool("playerNear_Bool", true);
         textSource_InteractPrompt.text = prompt;
         interact.performed += startDialogue; // basically if player hits "e"
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
+        animator.SetBool("playerNear_Bool", false);
         textSource_InteractPrompt.text = null;
     }
     public void startDialogue(InputAction.CallbackContext context)
