@@ -61,9 +61,18 @@ public class PlayerAttack : MonoBehaviour
             //also need to find a way to play animations depending on what weapon is equipped.
             if (weapon.name == "Katana")
             {
-                animator.runtimeAnimatorController = animatorOverrideControllers[0]; // 0 is Katana, need to find a better way to do this maybe?
+                animator.runtimeAnimatorController = animatorOverrideControllers[0]; //as long as the animatorList corresponds to appropriate weapon, should be fine.
             } // can try switch cases.
+            else if (weapon.name == "Bow")
+            {
+                animator.runtimeAnimatorController = animatorOverrideControllers[1];
+            }
+            else if (weapon.name == "Dagger")
+            {
+                animator.runtimeAnimatorController= animatorOverrideControllers[2];
+            }
 
+            
         }
     }
 
