@@ -16,4 +16,4 @@ MonoBehaviour:
   attackType: Slash
   damage: 10
   icon: {fileID: 21300000, guid: c013b12a75b1f1e41a20290d48930754, type: 3}
-  attackAnimation: {fileID: 0}
+  animatorController: {fileID: 22100000, guid: b554157397731e44f8018d41216a86db, type: 2}

@@ -8,4 +8,8 @@ AnimatorOverrideController:
   m_PrefabAsset: {fileID: 0}
   m_Name: equipDagger
   m_Controller: {fileID: 9100000, guid: a81bf066749d7db459e1ee378de191e7, type: 2}
-  m_Clips: []
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: aa2cbdb4e2774044589c69212bcdb008, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 28f168a794c68814b8074bff9b8b7e0f, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 439745d0ff476dd4bac684086ef5ede3, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 1593544462d67b84e959a5ac5e5fbe3f, type: 2}

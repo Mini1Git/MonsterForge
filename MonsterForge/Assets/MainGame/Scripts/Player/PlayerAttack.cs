@@ -58,19 +58,7 @@ public class PlayerAttack : MonoBehaviour
             armed = true;
             weapon = weaponPicker.weaponEquipped;
             attackDamage = weapon.damage;
-            //also need to find a way to play animations depending on what weapon is equipped.
-            if (weapon.name == "Katana")
-            {
-                animator.runtimeAnimatorController = animatorOverrideControllers[0]; //as long as the animatorList corresponds to appropriate weapon, should be fine.
-            } // can try switch cases.
-            else if (weapon.name == "Bow")
-            {
-                animator.runtimeAnimatorController = animatorOverrideControllers[1];
-            }
-            else if (weapon.name == "Dagger")
-            {
-                animator.runtimeAnimatorController= animatorOverrideControllers[2];
-            }
+            animator.runtimeAnimatorController = weapon.animatorController;
 
             
         }
@@ -86,8 +74,24 @@ public class PlayerAttack : MonoBehaviour
         
     }
 
+    private void shootBow()
+    {
+        //spawn arrow prefab
+        GameObject arrow = weapon.projectile;
+        GameObject.Instantiate(arrow, this.attackRef.transform);
+        
+
+    }
+
     public void attackingLogic() // depending on what type of attack...need to change/overhaul.
     {
+        if (weapon.name == "Bow")
+        {
+            Debug.Log("PEW");
+            shootBow();
+            return;
+        }
+
         Collider2D[] hitAttack = Physics2D.OverlapBoxAll(attackRef.position, attackSize, 90, layersEnemies);
 
         foreach (Collider2D hit in hitAttack)

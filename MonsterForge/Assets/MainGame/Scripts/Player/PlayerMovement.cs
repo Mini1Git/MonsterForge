@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 10;
     public float jumpForce = 100;
     [SerializeField] LayerMask LayerGround;
-
+    public bool flipped = false;
     InputAction move;
     InputAction jump;
     float extendedBoxDown = 0.2f;
@@ -54,6 +54,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 currentScale = transform.localScale;
         currentScale.x *= -1;
         transform.localScale = currentScale;
+        flipped = !flipped;
     }
 
     void Update()
@@ -63,10 +64,12 @@ public class PlayerMovement : MonoBehaviour
         moveDir = move.ReadValue<float>();
         if (moveDir < 0 && isFacingRight) // if facing right and go left.
         {
+            
             Flip();
         }
         else if (moveDir > 0 && !isFacingRight) // else
         {
+            
             Flip();
         }
 
