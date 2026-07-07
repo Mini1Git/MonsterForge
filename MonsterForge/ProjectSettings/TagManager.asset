@@ -9,6 +9,7 @@ TagManager:
   - KatanaLocation
   - Burow
   - weaponContainer
+  - dummy
   layers:
   - Default
   - TransparentFX

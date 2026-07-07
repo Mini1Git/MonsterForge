@@ -41,6 +41,10 @@ public class arrowLogic : MonoBehaviour
         arrowFly.linearVelocityY = 0;
         hit = true;
         this.GetComponent<BoxCollider2D>().isTrigger = false;
+        if (collision.CompareTag("dummy"))
+        {
+            collision.GetComponent<Health_Component>().damageEntity(1);
+        }
     }
 
 

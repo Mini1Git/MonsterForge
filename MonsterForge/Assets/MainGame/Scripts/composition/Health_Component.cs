@@ -25,7 +25,7 @@ public class Health_Component : MonoBehaviour
     {
 
     }
-    public void damageEntity(float damage)
+    public virtual void damageEntity(float damage)
     {
         _currentHealth -= damage;
         if (_currentHealth <= 0)
