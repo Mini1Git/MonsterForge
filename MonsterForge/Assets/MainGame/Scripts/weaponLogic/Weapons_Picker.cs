@@ -17,12 +17,12 @@ public class Weapons_Picker : MonoBehaviour
     {
         foreach (var weapon in weapons_SO)
         {
-            GameObject weaponGameObject = Instantiate(weapon.prefab);
-            weaponGameObject.GetComponent<SpriteRenderer>().sprite = weapon.icon;
+            
             GameObject tagged = GameObject.FindGameObjectWithTag(weapon.name + "Location"); // gets location of all of the weapons (provided they have tag)
-            weaponGameObject.transform.position = tagged.transform.position;
+            GameObject weaponGameObject = Instantiate(weapon.prefab,tagged.transform);
+            weaponGameObject.GetComponent<SpriteRenderer>().sprite = weapon.icon;
             //parent
-     
+
 
             weapons.Add(weaponGameObject);
 
@@ -51,7 +51,7 @@ public class Weapons_Picker : MonoBehaviour
                 if (weapon.name == chosenWeapon)
                 {
                     weaponEquipped = weapon.GetComponent<Mouse_Interact_Weapons>().weaponInfo; // weaponEquipped is weaponSO
-                    continue;
+                    
                 }
                 weapon.SetActive(false);
                 yield return null;

@@ -23,14 +23,14 @@ public class PlayerAttack : MonoBehaviour
 
     private void Awake()
     {
+
         
-        weaponPicker = GameObject.FindGameObjectWithTag("weaponContainer").GetComponent<Weapons_Picker>();
         playerInput = new PlayerInput();
 
     }
     void Start()
     {
-        
+        weaponPicker = GameObjectManager.Instance.weaponContainer.GetComponent<Weapons_Picker>();
         animator = GetComponent<Animator>();
         
         

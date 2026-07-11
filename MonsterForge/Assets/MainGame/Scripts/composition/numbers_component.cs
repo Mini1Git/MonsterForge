@@ -17,17 +17,17 @@ public class numbers_component : MonoBehaviour
     }
     IEnumerator float_numbers (){
         float timer = 0;
+        float randomNum = Random.Range(-2f, 2f);
         while (timer < duration)
         {
-            float randomNum = Random.Range(-1f,1f);
-            print(randomNum);
-            gameObject.transform.position = new Vector2(transform.position.x + 2*randomNum * Time.deltaTime, transform.position.y + 2 * Time.deltaTime);
+            
+            gameObject.transform.position = new Vector2(transform.position.x + randomNum * Time.deltaTime, transform.position.y + 2 * Time.deltaTime);
             timer += Time.deltaTime;
             yield return null;
             
             
         }
-
+        Object.Destroy(gameObject);
         running = null;
 
     }

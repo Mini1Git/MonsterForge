@@ -12,7 +12,7 @@ public class Mouse_Interact_Weapons : MonoBehaviour, IPointerEnterHandler, IPoin
     }
     private void Start()
     {
-        weaponPicker = GameObject.FindGameObjectWithTag("weaponContainer").GetComponent<Weapons_Picker>();
+        weaponPicker = GameObjectManager.Instance.weaponContainer.GetComponent<Weapons_Picker>();
         
 
         outlineMat = gameObject.GetComponent<SpriteRenderer>().material;
