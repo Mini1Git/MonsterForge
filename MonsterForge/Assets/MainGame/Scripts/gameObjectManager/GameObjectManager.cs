@@ -5,11 +5,19 @@ public class GameObjectManager : MonoBehaviour
     public static GameObjectManager Instance;
 
     public GameObject weaponContainer;
+    public GameObject door;
+    public Weapon_SO currentWeapon;
+    GameObject player;
 
     private void Awake()
     {
+        DontDestroyOnLoad(this.gameObject);
         Instance = this;
         weaponContainer.SetActive(false);
+    }
+    public void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     public void showWeaponContainer(bool show)
@@ -20,6 +28,8 @@ public class GameObjectManager : MonoBehaviour
         }
         else
         {
+            currentWeapon = weaponContainer.GetComponent<Weapons_Picker>().weaponEquipped; //this means the player def picked a weapon.
+            player.GetComponent<PlayerAttack>().EquipWeapon(currentWeapon);
             weaponContainer.SetActive(false);
         }
     }

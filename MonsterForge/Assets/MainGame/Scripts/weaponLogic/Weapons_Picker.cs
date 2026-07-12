@@ -9,7 +9,6 @@ public class Weapons_Picker : MonoBehaviour
     //now need to instantiate these weapons as gameobjects
     public List<GameObject> weapons;
 
-    public string chosenWeapon = null;
     public Weapon_SO weaponEquipped;
     public bool choseAWeapon;
     
@@ -33,35 +32,17 @@ public class Weapons_Picker : MonoBehaviour
 
     public void Update()
     {
-        if (chosenWeapon != null && choseAWeapon)
+        if (weaponEquipped != null && choseAWeapon)
         {
-            StartCoroutine(choseWeapon());
-            Debug.Log("You chose the " + chosenWeapon);
+            choseWeapon();
             choseAWeapon = false; // so it only plays once.
             // now give the player a idle animation with the weapon.
         }
     }
 
-    IEnumerator choseWeapon()
+    public void choseWeapon()
     {
-        if (weapons.Count > 1)
-        {
-            foreach (var weapon in weapons)
-            {
-                if (weapon.name == chosenWeapon)
-                {
-                    weaponEquipped = weapon.GetComponent<Mouse_Interact_Weapons>().weaponInfo; // weaponEquipped is weaponSO
-                    
-                }
-                weapon.SetActive(false);
-                yield return null;
-            }
-        }
-        else
-        {
-            Debug.Log("only one weapon!");
-            yield return null;
-        }
+        GameObjectManager.Instance.showWeaponContainer(false);
     }
 
 

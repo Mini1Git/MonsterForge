@@ -6,20 +6,18 @@ public class PlayerAttack : MonoBehaviour
 {   
     
     public float attackDamage = 0;
-    public Weapon_SO weapon;
     public Transform attackRef;
-    public Vector2 attackSize = Vector2.one;
+    private Vector2 attackSize = Vector2.one;
 
-    Weapons_Picker weaponPicker;
+    public Weapon_SO weaponEquipped;
     PlayerInput playerInput;
     InputAction attack;
     bool armed = false;
     
     public LayerMask layersEnemies;
     Animator animator;
-    
-    public AnimatorOverrideController[] animatorOverrideControllers; // need to use.
-    
+
+
 
     private void Awake()
     {
@@ -30,10 +28,15 @@ public class PlayerAttack : MonoBehaviour
     }
     void Start()
     {
-        weaponPicker = GameObjectManager.Instance.weaponContainer.GetComponent<Weapons_Picker>();
+
+        
         animator = GetComponent<Animator>();
-        
-        
+        if (GameObjectManager.Instance.currentWeapon != null) // check if GameObjectManager's current weapon is null or not. persists.
+        {
+            EquipWeapon(GameObjectManager.Instance.currentWeapon);
+        }
+
+
 
     }
     private void OnEnable()
@@ -53,15 +56,7 @@ public class PlayerAttack : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (weaponPicker.weaponEquipped != null && !armed)
-        {
-            armed = true;
-            weapon = weaponPicker.weaponEquipped;
-            attackDamage = weapon.damage;
-            animator.runtimeAnimatorController = weapon.animatorController;
 
-            
-        }
     }
 
     public void startAttack(InputAction.CallbackContext context)
@@ -73,11 +68,17 @@ public class PlayerAttack : MonoBehaviour
 
         
     }
-
+    public void EquipWeapon(Weapon_SO weapon)
+    {
+        weaponEquipped = weapon;
+        armed = true;
+        animator.runtimeAnimatorController = weapon.animatorController;
+        attackDamage = weapon.damage;
+    }
     private void shootBow()
     {
         //spawn arrow prefab
-        GameObject arrow = weapon.projectile;
+        GameObject arrow = weaponEquipped.projectile;
         GameObject.Instantiate(arrow, this.attackRef.transform);
         
 
@@ -85,8 +86,8 @@ public class PlayerAttack : MonoBehaviour
 
     public void attackingLogic() // depending on what type of attack...need to change/overhaul.
     {
-        if (weapon.name == "Bow")
-        {
+        if (weaponEquipped.attackType == Weapon_SO.AttackType.ProjectileBased)
+        { //overhaul this
             Debug.Log("PEW");
             shootBow();
             return;

@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a0bcd84ddd06e674cb12108c96baf4ff, type: 3}
-  m_Name: firstGreetings_burow
+  m_Name: doorOpenConvo
   m_EditorClassIdentifier: Assembly-CSharp::DialogueNode
   character: Burow
   dialogueText:
-  - Hello
-  - Welcome to my shop
-  - i am Burow
-  - Pick yerself a weapon and test it on that dummy over there
-  nextNode: {fileID: 11400000, guid: dbb321f9e30b0af48a0a4dda59e2bb6f, type: 2}
+  - Alright, done testing ur weapon?
+  - 'Go to door now. '
+  - 'I open it. '
+  nextNode: {fileID: 0}
   onComplete:
-  - {fileID: 11400000, guid: 4045125763abeef4585818d3ddaef4c9, type: 2}
+  - {fileID: 11400000, guid: 3876afabacb82034eb49bfbb31245732, type: 2}

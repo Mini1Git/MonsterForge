@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Bow
   m_EditorClassIdentifier: Assembly-CSharp::Weapon
   prefab: {fileID: 8753447989534508866, guid: c9584522ddfcc8645ac22c84a2adb19c, type: 3}
-  attackType: Shoot
   damage: 5
   icon: {fileID: 21300000, guid: 73f843bfda623594aa1fa47f097216a4, type: 3}
   animatorController: {fileID: 22100000, guid: 80224d0d645363340966c47e8436e27a, type: 2}
   projectile: {fileID: 1168510105965836984, guid: 5f1488d5ca5c290408da68d3cd9701cb, type: 3}
+  attackType: 1

@@ -38,7 +38,7 @@ public class Mouse_Interact_Weapons : MonoBehaviour, IPointerEnterHandler, IPoin
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        weaponPicker.chosenWeapon = gameObject.name;
+        weaponPicker.weaponEquipped = weaponInfo;
         weaponPicker.choseAWeapon = true;
     }
 }

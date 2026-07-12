@@ -7,22 +7,23 @@ public class DialogueManager : MonoBehaviour
     public DialogueNode currentNode;
     public NPCDialogue_Data current_Npc;
     public int indexDialogue = 0;
+    public static DialogueManager Instance;
+    public GameObject player;
 
     PlayerInput playerInput;
     InputAction interact;
-    DialogueManager Instance;
+    bool startedDialogue = false;
 
     private void Awake()
     {
-        playerInput = new PlayerInput();
-
+        DontDestroyOnLoad(this.gameObject);
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject); // Destroy duplicate
             return;
         }
         Instance = this;
-
+        playerInput = new PlayerInput();
     }
     private void OnEnable()
     {
@@ -36,16 +37,34 @@ public class DialogueManager : MonoBehaviour
     }
     public void startDialogue(NPCDialogue_Data npc)
     {
-
-        currentNode = npc.startingNode;
         
+        if (startedDialogue == false) {
+            startedDialogue = true;
+            currentNode = npc.startingNode;
+        }
+        else if (indexDialogue >= currentNode.dialogueText.Length && currentNode.nextNode != null)
+        {
+            Debug.Log("GOING TO NEXT NODE");
+            currentNode = currentNode.nextNode;
+            indexDialogue = 0;
+        }
+        else
+        {
+            Debug.Log("END OF SCRIPT");
+        }
+
     }
     private void Update()
     {
-        if (currentNode != null)
+        if (current_Npc != null)
         {
             interact.performed += goNextDialogue; // basically if player hits "e"
         }
+        else
+        {
+            interact.performed -= goNextDialogue;
+        }
+        
     }
 
     public void goNextDialogue(InputAction.CallbackContext context) { 
@@ -54,17 +73,19 @@ public class DialogueManager : MonoBehaviour
         {
             Debug.Log("END OF SCRIPT");
             current_Npc.textGameObj.text = currentNode.dialogueText[currentNode.dialogueText.Length-1];
-
-            currentNode.onComplete[0].executeEvent();
+            
 
             return;
         }
-
-        if (indexDialogue >= currentNode.dialogueText.Length)
-        {
-            currentNode = currentNode.nextNode;
-            indexDialogue = 0;
+        if (indexDialogue >= currentNode.dialogueText.Length) {//if we hit the max length of the dialogue of current node.
+            return;
         }
+        if (indexDialogue >= currentNode.dialogueText.Length - 1) {
+
+            dialogueContext dialogueContext = new dialogueContext(player, current_Npc);
+            currentNode.onComplete[0].executeEvent(dialogueContext);
+        }
+
         displayDialogue();
         
     }
