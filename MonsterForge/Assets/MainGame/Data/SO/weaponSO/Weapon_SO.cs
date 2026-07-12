@@ -19,7 +19,6 @@ public class Weapon_SO : ScriptableObject
     public AttackType attackType;
     public void Awake()
     {
-        
         weaponName = name;
     }
 

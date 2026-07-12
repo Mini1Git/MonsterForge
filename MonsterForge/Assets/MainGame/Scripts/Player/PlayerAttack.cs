@@ -87,7 +87,7 @@ public class PlayerAttack : MonoBehaviour
     public void attackingLogic() // depending on what type of attack...need to change/overhaul.
     {
         if (weaponEquipped.attackType == Weapon_SO.AttackType.ProjectileBased)
-        { //overhaul this
+        { //overhaul how this will work.
             Debug.Log("PEW");
             shootBow();
             return;

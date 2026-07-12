@@ -5,14 +5,14 @@ public class DialogueManager : MonoBehaviour
 {
      
     public DialogueNode currentNode;
-    public NPCDialogue_Data current_Npc;
+    public NPCDialogue_Controller current_Npc;
     public int indexDialogue = 0;
     public static DialogueManager Instance;
     public GameObject player;
 
     PlayerInput playerInput;
     InputAction interact;
-    bool startedDialogue = false;
+    
 
     private void Awake()
     {
@@ -35,23 +35,52 @@ public class DialogueManager : MonoBehaviour
     {
         interact.Disable();
     }
-    public void startDialogue(NPCDialogue_Data npc)
+    public void setCurrentNPC(NPCDialogue_Controller npc)
+    {
+        current_Npc = npc;
+
+        if (string.IsNullOrEmpty(npc.ID))
+        {
+            Debug.LogWarning("Need to add a ID to the NPC!");
+            return;
+        }
+        //use gameManager here to keep track of npcs talked with
+        if (!DialogueStateManager.Instance.npcDialogueState_list.ContainsKey(npc.ID))
+        {
+            Debug.Log("New NPC encountered!");
+            currentNode = npc.startingNode;
+            DialogueStateManager.Instance.npcDialogueState_list.Add(npc.ID, npc.NPC_State);
+            
+        }
+        else
+        {
+            
+            Debug.Log($"Already encountered {npc.ID}"); 
+            if (npc.NPC_State.wasInterrupted)
+            {
+                
+                currentNode = npc.interruptDialogueNode;
+                indexDialogue = 0;
+            }
+            else
+            {
+                checkDialogueNode();
+            }
+        }
+        
+    }
+    public void checkDialogueNode()
     {
         
-        if (startedDialogue == false) {
-            startedDialogue = true;
-            currentNode = npc.startingNode;
-        }
-        else if (indexDialogue >= currentNode.dialogueText.Length && currentNode.nextNode != null)
+        
+        if (indexDialogue >= currentNode.dialogueText.Count && currentNode.nextNode != null)
         {
+
             Debug.Log("GOING TO NEXT NODE");
             currentNode = currentNode.nextNode;
             indexDialogue = 0;
         }
-        else
-        {
-            Debug.Log("END OF SCRIPT");
-        }
+        
 
     }
     private void Update()
@@ -67,33 +96,93 @@ public class DialogueManager : MonoBehaviour
         
     }
 
-    public void goNextDialogue(InputAction.CallbackContext context) { 
+    public void goNextDialogue(InputAction.CallbackContext context) {
 
-        if (currentNode.nextNode == null && indexDialogue >= currentNode.dialogueText.Length)
-        {
-            Debug.Log("END OF SCRIPT");
-            current_Npc.textGameObj.text = currentNode.dialogueText[currentNode.dialogueText.Length-1];
+            displayDialogue();
             
-
-            return;
-        }
-        if (indexDialogue >= currentNode.dialogueText.Length) {//if we hit the max length of the dialogue of current node.
-            return;
-        }
-        if (indexDialogue >= currentNode.dialogueText.Length - 1) {
-
-            dialogueContext dialogueContext = new dialogueContext(player, current_Npc);
-            currentNode.onComplete[0].executeEvent(dialogueContext);
+        if (DialogueStateManager.Instance.npcDialogueState_list[current_Npc.ID].state == DialogueState.hasNotStarted 
+            || DialogueStateManager.Instance.npcDialogueState_list[current_Npc.ID].state == DialogueState.DoneTalking)
+        {
+            DialogueStateManager.Instance.setDialogueNPC_State(current_Npc, DialogueState.inProgress); // which means we already talked to them...
         }
 
-        displayDialogue();
+        handleInterruption();
         
-    }
+        
+        if (handleDialogueCompletion())
+        {
+            return;
+        }
 
+    }
+    public void handleInterruption()
+    {
+        //we want to check this before checking if we are done current node, as this is an interruption.
+        if (DialogueStateManager.Instance.npcDialogueState_list[current_Npc.ID].wasInterrupted
+            && DialogueStateManager.Instance.npcDialogueState_list[current_Npc.ID].state == DialogueState.inProgress)
+        // if was interrupted in middle of the node's dialogue.
+        {
+            if (indexDialogue >= currentNode.dialogueText.Count)
+            {
+                DialogueStateManager.Instance.npcDialogueState_list[current_Npc.ID].wasInterrupted = false;
+                currentNode = DialogueStateManager.Instance.npcDialogueState_list[current_Npc.ID].resumeNode;
+                indexDialogue = 0;
+            }
+
+
+        }
+    }
+    public void OnCompleteEvents()
+    {
+        if (indexDialogue >= currentNode.dialogueText.Count)
+        {
+            //executes only one time.
+            dialogueContext dialogueContext = new dialogueContext(player, current_Npc); // gets context as to who is talking to who.
+
+            for (int i = 0; i < currentNode.onComplete.Length; i++) // executes all the onComplete events.
+            {
+                currentNode.onComplete[i].executeEvent(dialogueContext);
+            }
+
+
+        }
+    }
+    public bool handleDialogueCompletion()
+    {
+        bool done = false;
+        //we should check if done the current node.
+        if (indexDialogue >= currentNode.dialogueText.Count && currentNode.nextNode != null)
+        {
+            Debug.Log("DONE CURRENT NODE!");
+            DialogueStateManager.Instance.npcDialogueState_list[current_Npc.ID].state = DialogueState.DoneTalking;
+            
+        }
+        if (currentNode.nextNode == null && indexDialogue >= currentNode.dialogueText.Count)
+        { // if fully exhausted dialogue for npc.
+
+            //ig here check for quests completed or smt.
+            Debug.Log($"Done dialogue for {current_Npc.ID}");
+            current_Npc.textGameObj.text = currentNode.dialogueText[currentNode.dialogueText.Count - 1]; // just repeat last line. for now.
+            DialogueStateManager.Instance.setDialogueNPC_State(current_Npc, DialogueState.DoneTalking);
+
+            done = true;
+        }
+
+        OnCompleteEvents();
+        
+        if (done)
+        {
+            return true;
+        }
+        else {  return false; }
+    }
     public void displayDialogue()
     {
+        if (indexDialogue < currentNode.dialogueText.Count)
+        {
+            current_Npc.textGameObj.text = currentNode.dialogueText[indexDialogue];
+            indexDialogue++;
+        }
         
-        current_Npc.textGameObj.text = currentNode.dialogueText[indexDialogue];
-        indexDialogue++;
     }
 }

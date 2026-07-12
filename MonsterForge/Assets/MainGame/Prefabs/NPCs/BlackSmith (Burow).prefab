@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 551192402400877904}
   - component: {fileID: 4408009993909055174}
   - component: {fileID: 3140958715921625200}
-  - component: {fileID: 6517663985395520842}
   - component: {fileID: 5348911086701076492}
   m_Layer: 7
   m_Name: BlackSmith (Burow)
@@ -177,21 +176,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0bef35102a11df47bcf4e9969f8b63b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
---- !u!114 &6517663985395520842
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 89387381122787417}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6439b44358f7d16458ac6ef39270bd6a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue_Data
-  textGameObj: {fileID: 0}
-  startingNode: {fileID: 11400000, guid: bde2b9c856f0c2c409ccbc43abfccb95, type: 2}
-  dm: {fileID: 0}
 --- !u!114 &5348911086701076492
 MonoBehaviour:
   m_ObjectHideFlags: 0
