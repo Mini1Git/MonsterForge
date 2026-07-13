@@ -8,7 +8,6 @@ public class DialogueStateManager : MonoBehaviour
     
     private void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
         Instance = this;
     }
     public void setDialogueNPC_State(NPCDialogue_Controller npc, DialogueState state)

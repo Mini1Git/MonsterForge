@@ -8,7 +8,7 @@ public class NPCDialogue_Controller : MonoBehaviour
     public NPC_DialogueState NPC_State;
     public TextMeshProUGUI textGameObj;
     public DialogueNode startingNode;
-    public bool wasInterrupted = false;
+    
     public DialogueNode interruptDialogueNode;
     private DialogueManager dm;
 

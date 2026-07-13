@@ -8,7 +8,7 @@ public class GameObjectManager : MonoBehaviour
     public GameObject door;
     public Weapon_SO currentWeapon;
     GameObject player;
-
+    bool showedOnce = false;
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);
@@ -22,8 +22,9 @@ public class GameObjectManager : MonoBehaviour
 
     public void showWeaponContainer(bool show)
     {
-        if (show)
+        if (show && !showedOnce)
         {
+            showedOnce = true;
             weaponContainer.SetActive(true);
         }
         else
