@@ -36,13 +36,14 @@ public class Weapons_Picker : MonoBehaviour
         {
             choseWeapon();
             choseAWeapon = false; // so it only plays once.
-            // now give the player a idle animation with the weapon.
+            
         }
     }
 
     public void choseWeapon()
     {
         GameObjectManager.Instance.showWeaponContainer(false);
+        GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>().EquipWeapon(weaponEquipped);
     }
 
 

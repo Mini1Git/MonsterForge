@@ -1,6 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
-
+public enum DialogueState
+{
+    hasNotStarted,
+    inProgress,
+    WaitingOnQuest,
+    DoneTalking
+}
 public class DialogueStateManager : MonoBehaviour
 {
     public static DialogueStateManager Instance { get; private set; } // read only.
@@ -8,6 +14,12 @@ public class DialogueStateManager : MonoBehaviour
     
     private void Awake()
     {
+        
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
     }
     public void setDialogueNPC_State(NPCDialogue_Controller npc, DialogueState state)

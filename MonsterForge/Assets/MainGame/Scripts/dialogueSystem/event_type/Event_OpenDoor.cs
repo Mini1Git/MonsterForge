@@ -1,15 +1,18 @@
+using Unity.VisualScripting;
 using UnityEngine;
 [CreateAssetMenu(fileName = "Event_OpenDoor", menuName = "Dialogue/Events/open Door")]
 public class Event_OpenDoor : Dialogue_event
 {
+    
     public override void executeEvent(dialogueContext dialogueContext)
     {
-        npc_openDoor doorOpener = dialogueContext.NPC.GetComponent<npc_openDoor>();
+        ability_openDoors doorOpener = dialogueContext.NPC.GetComponent<ability_openDoors>();
+       
         if (doorOpener != null)
         {
-            doorOpener.openDoor();
+            Debug.Log("OPEN DOOR BRUH");
+            doorOpener.OpenDoor();
         }
-        // this openDoor is a method that opens door from npc_openDoor.
-        // check it out 
+        
     }
 }

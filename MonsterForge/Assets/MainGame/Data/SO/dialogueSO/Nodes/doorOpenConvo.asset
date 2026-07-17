@@ -15,8 +15,8 @@ MonoBehaviour:
   character: Burow
   dialogueText:
   - Alright, done testing ur weapon?
-  - 'Go to door now. '
-  - 'I open it. '
-  nextNode: {fileID: 0}
+  - 'Give me a sec... '
+  - I'll open the door.
+  nextNode: {fileID: 11400000, guid: f7ea58f428df9864fa3762986c178214, type: 2}
   onComplete:
   - {fileID: 11400000, guid: 3876afabacb82034eb49bfbb31245732, type: 2}

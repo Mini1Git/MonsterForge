@@ -10,6 +10,7 @@ public class NPCDialogue_Controller : MonoBehaviour
     public DialogueNode startingNode;
     
     public DialogueNode interruptDialogueNode;
+    
     private DialogueManager dm;
 
     public virtual void OnTriggerEnter2D(Collider2D collision)

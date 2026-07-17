@@ -35,6 +35,7 @@ public class PlayerAttack : MonoBehaviour
         {
             EquipWeapon(GameObjectManager.Instance.currentWeapon);
         }
+        
 
 
 

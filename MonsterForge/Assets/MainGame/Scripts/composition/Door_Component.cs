@@ -2,12 +2,15 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
+
 public class Door_Component : MonoBehaviour
 {
     PlayerInput input;
     InputAction interact;
     public GameObject textPrompt;
-
+    public string sceneName;
+    bool isUnlocked;
+    
     private void Awake()
     {
         input = new PlayerInput();
@@ -24,17 +27,32 @@ public class Door_Component : MonoBehaviour
     public void Open()
     {
         Debug.Log("Door has been unlocked.");
+        isUnlocked = true;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        
         textPrompt.SetActive(true);
+            
+        
         interact.performed += Enter;
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        interact.performed -= Enter;
     }
 
     public void Enter(InputAction.CallbackContext context)
     {
-        Debug.Log("Enter Outside");
-        SceneManager.LoadScene("OutsideTest");
+        if (isUnlocked)
+        {
+            Debug.Log($"Entering {sceneName}");
+            SceneManager.LoadScene(sceneName);
+        }
+        else
+        {
+            Debug.Log("The Door is Locked! Talk to Burow before heading out!");
+        }
     }
 
 }

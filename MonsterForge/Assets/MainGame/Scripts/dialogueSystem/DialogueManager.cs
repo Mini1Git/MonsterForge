@@ -12,7 +12,7 @@ public class DialogueManager : MonoBehaviour
 
     PlayerInput playerInput;
     InputAction interact;
-    
+    bool doneOnCompleteEvents = false;
 
     private void Awake()
     {
@@ -79,6 +79,8 @@ public class DialogueManager : MonoBehaviour
             Debug.Log("GOING TO NEXT NODE");
             currentNode = currentNode.nextNode;
             indexDialogue = 0;
+            doneOnCompleteEvents = false;
+            //basically reset everything, so reset the index, completeEvents bool, and set currentNode to the next one.
         }
         
 
@@ -134,8 +136,13 @@ public class DialogueManager : MonoBehaviour
     }
     public void OnCompleteEvents()
     {
+        
+        if (doneOnCompleteEvents)
+            return;
+
         if (indexDialogue >= currentNode.dialogueText.Count)
         {
+            Debug.Log("Doing on Complete events!");
             //executes only one time.
             dialogueContext dialogueContext = new dialogueContext(player, current_Npc); // gets context as to who is talking to who.
 
@@ -160,15 +167,19 @@ public class DialogueManager : MonoBehaviour
         if (currentNode.nextNode == null && indexDialogue >= currentNode.dialogueText.Count)
         { // if fully exhausted dialogue for npc.
 
-            //ig here check for quests completed or smt.
             Debug.Log($"Done dialogue for {current_Npc.ID}");
             current_Npc.textGameObj.text = currentNode.dialogueText[currentNode.dialogueText.Count - 1]; // just repeat last line. for now.
             DialogueStateManager.Instance.setDialogueNPC_State(current_Npc, DialogueState.DoneTalking);
 
             done = true;
         }
-
-        OnCompleteEvents();
+        if (!doneOnCompleteEvents && indexDialogue >= currentNode.dialogueText.Count)
+        { // if we haven't done the onComplete events yet, and we've reached the end of the dialogue.
+            Debug.Log("Going to oncompleteEvent");
+            OnCompleteEvents();
+            doneOnCompleteEvents = true;
+        }
+        
         
         if (done)
         {

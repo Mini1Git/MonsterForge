@@ -1,4 +1,8 @@
 [System.Serializable]
+
+
+
+
 public class NPC_DialogueState
 {
     public DialogueState state;

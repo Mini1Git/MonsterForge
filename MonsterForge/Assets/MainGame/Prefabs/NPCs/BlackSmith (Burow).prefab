@@ -13,7 +13,8 @@ GameObject:
   - component: {fileID: 551192402400877904}
   - component: {fileID: 4408009993909055174}
   - component: {fileID: 3140958715921625200}
-  - component: {fileID: 5348911086701076492}
+  - component: {fileID: 5793954597145980568}
+  - component: {fileID: 2996208471512970085}
   m_Layer: 7
   m_Name: BlackSmith (Burow)
   m_TagString: Burow
@@ -176,7 +177,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0bef35102a11df47bcf4e9969f8b63b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: '::'
---- !u!114 &5348911086701076492
+--- !u!114 &5793954597145980568
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -185,9 +186,29 @@ MonoBehaviour:
   m_GameObject: {fileID: 89387381122787417}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aec9ec39464102649b267330f015ca2e, type: 3}
+  m_Script: {fileID: 11500000, guid: 6439b44358f7d16458ac6ef39270bd6a, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::npc_openDoor
+  m_EditorClassIdentifier: Assembly-CSharp::NPCDialogue_Controller
+  ID: Burow
+  NPC_State:
+    state: 0
+    wasInterrupted: 0
+    resumeNode: {fileID: 0}
+  textGameObj: {fileID: 0}
+  startingNode: {fileID: 11400000, guid: bde2b9c856f0c2c409ccbc43abfccb95, type: 2}
+  interruptDialogueNode: {fileID: 11400000, guid: d6b98f8da81fff341851ff1aaead8b83, type: 2}
+--- !u!114 &2996208471512970085
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 89387381122787417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67d42529d98a4d8438434ec8cc10a5aa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ability_openDoors
   door: {fileID: 0}
 --- !u!1 &758215937197172951
 GameObject:

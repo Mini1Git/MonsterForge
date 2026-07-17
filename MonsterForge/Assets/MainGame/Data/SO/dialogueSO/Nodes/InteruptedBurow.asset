@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0bcd84ddd06e674cb12108c96baf4ff, type: 3}
   m_Name: InteruptedBurow
   m_EditorClassIdentifier: Assembly-CSharp::DialogueNode
-  character: 
-  dialogueText: []
-  nextNode: {fileID: 0}
+  character: Burow
+  dialogueText:
+  - ...
+  - As I was saying...
+  nextNode: {fileID: 11400000, guid: bde2b9c856f0c2c409ccbc43abfccb95, type: 2}
   onComplete: []

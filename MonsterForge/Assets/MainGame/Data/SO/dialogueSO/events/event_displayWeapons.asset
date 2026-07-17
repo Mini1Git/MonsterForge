@@ -10,5 +10,5 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8199bbb040acf4f42b3f342785b8a997, type: 3}
-  m_Name: event_displayWeapons
+  m_Name: Event_displayWeapons
   m_EditorClassIdentifier: Assembly-CSharp::Event_displayWeapons
