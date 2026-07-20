@@ -1,8 +1,10 @@
+using System.Collections;
 using UnityEngine;
 
 public class arrowLogic : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+    
     Rigidbody2D arrowFly;
     bool hit = false;
     bool goRight = true;
@@ -20,11 +22,11 @@ public class arrowLogic : MonoBehaviour
         {
             if (goRight)
             {
-                arrowFly.linearVelocity += Vector2.right * 10;
+                arrowFly.linearVelocity += Vector2.right * GameObjectManager.Instance.arrowSpeed;
             }
             else
             {
-                arrowFly.linearVelocity -= Vector2.right * 10;
+                arrowFly.linearVelocity -= Vector2.right * GameObjectManager.Instance.arrowSpeed;
             }
         }
     }
@@ -37,16 +39,34 @@ public class arrowLogic : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        arrowFly.linearVelocityX = 0;
-        arrowFly.linearVelocityY = 0;
-        hit = true;
-        this.GetComponent<BoxCollider2D>().isTrigger = false;
-        if (collision.CompareTag("dummy"))
-        {
-            collision.GetComponent<Health_Component>().damageEntity(1);
+        if (collision.CompareTag("dummy") || collision.CompareTag("Wall+Floor") || collision.CompareTag("Boss")) { 
+
+            arrowFly.linearVelocityX = 0;
+            arrowFly.linearVelocityY = 0;
+            hit = true;
+            GetComponent<Rigidbody2D>().gravityScale = 0;
+            GetComponent<BoxCollider2D>().enabled = false;
+            if (collision.CompareTag("dummy"))
+            {
+                collision.GetComponent<Health_Component>().damageEntity(1);
+            }
+            else if (collision.CompareTag("Boss"))
+            {
+                collision.GetComponent<BossAI>().takeDamage(GameObjectManager.Instance.arrowDamage);
+                GameObject.Destroy(gameObject);
+                return;
+            }
+
         }
+        StartCoroutine(Despawn());
     }
 
+    IEnumerator Despawn()
+    {
+
+        yield return new WaitForSeconds(4);
+        GameObject.Destroy(gameObject);
+    }
 
 
 

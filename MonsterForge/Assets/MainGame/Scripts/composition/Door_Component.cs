@@ -31,15 +31,18 @@ public class Door_Component : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.CompareTag("Player")){
+            textPrompt.SetActive(true);
+            interact.performed += Enter;
+        }
         
-        textPrompt.SetActive(true);
-            
-        
-        interact.performed += Enter;
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        interact.performed -= Enter;
+        if (collision.CompareTag("Player"))
+        {
+            interact.performed -= Enter;
+        }
     }
 
     public void Enter(InputAction.CallbackContext context)

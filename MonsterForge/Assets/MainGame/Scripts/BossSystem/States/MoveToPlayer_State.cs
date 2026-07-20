@@ -9,12 +9,13 @@ public class MoveToPlayer_State : Boss_State
 
     public override void EnterState()
     {
-        timer = 1f; // more so close the distance instead of timer.
+        bossAI.animator.SetBool("moving", true);
         Debug.Log("MOVING TOWARDS PLAYER");
     }
 
     public override void ExitState()
     {
+        bossAI.animator.SetBool("moving", false);
         Debug.Log("Exit moving!");
     }
 
@@ -26,7 +27,7 @@ public class MoveToPlayer_State : Boss_State
 
         if (distance <= 3f)
         {
-            bossAI.changeState(new Attack_State(bossAI));
+            bossAI.changeState(new Decision_State(bossAI));
         }
         else
         {

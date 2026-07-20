@@ -19,6 +19,7 @@ public class NPCDialogue_Controller : MonoBehaviour
         {
             dm.setCurrentNPC(this);
             textGameObj.text = "E";
+            dm.Subscribe();
         }
     }
     public void OnTriggerExit2D(Collider2D collision)
@@ -34,6 +35,8 @@ public class NPCDialogue_Controller : MonoBehaviour
             DialogueStateManager.Instance.npcDialogueState_list[ID].wasInterrupted = true;
             DialogueStateManager.Instance.npcDialogueState_list[ID].resumeNode = dm.currentNode;
         }
+
+        dm.Unsubscribe();
     }
     private void Start()
     {

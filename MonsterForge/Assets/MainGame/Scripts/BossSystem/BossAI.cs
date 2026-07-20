@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.Timeline;
 using UnityEngine.XR;
 
@@ -284,22 +285,31 @@ public abstract class BossAI : MonoBehaviour
     public GameObject player;
     public float moveSpeed = 10f;
     public  Animator animator;
-    
-    protected SpriteRenderer spriteRenderer;
+    public bool healed = false;
+    public Health_Component health;
 
+    protected SpriteRenderer spriteRenderer;
     protected Boss_State currentState; // only children and this class can use.
     [SerializeField]
     private string stateName;
+    Coroutine hitFlashRoutine;
+    Material flashMat;
+    public BossAttackSO[] bossAttacks;
+
+    public BossAttackSO currentBossAttack;
 
     public virtual void Awake()
     {
+        health = GetComponent<Health_Component>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        flashMat = spriteRenderer.material;
+        
     }
     public virtual void changeState(Boss_State state)
     {
-        currentState?.ExitState();
-
+        Debug.LogWarning($"STATE CHANGE: {currentState?.GetType().Name} -> {state.GetType().Name}");
+        currentState?.ExitState(); // culprit here, weird bug here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
         currentState = state;
 
         stateName = currentState.GetType().Name; // get the name of the state. 
@@ -320,7 +330,7 @@ public abstract class BossAI : MonoBehaviour
     public abstract void Move();
 
 
-    public bool facingRight()
+    protected bool facingRight()
     {
         if (transform.position.x >= player.transform.position.x)
         {
@@ -334,7 +344,7 @@ public abstract class BossAI : MonoBehaviour
 
     }
 
-    public void flipSprite()
+    protected void flipSprite()
     {
         if (facingRight()) // if this returns true, then that means that the boss needs to face right!
         {
@@ -346,5 +356,47 @@ public abstract class BossAI : MonoBehaviour
         }
     }
 
+    public void takeDamage(float damage) {
+        Health_Component hp = GetComponent<Health_Component>();
+        hp.damageEntity(damage); // does the damage.
+        if (!hp.isDead) // if the boss is not dead.
+        {
+            
+            if (hitFlashRoutine != null) // if theres already an active hitFlash, stop the current.
+            {
+                StopCoroutine(hitFlashRoutine);
+            }
+            
+            hitFlashRoutine = StartCoroutine(hitFlash());
+            
+        }
+        else
+        {
 
+            return;
+        }
+    }
+    public IEnumerator hitFlash()
+    {
+        Debug.Log("Flash!");
+        flashMat.SetFloat("_hitFlashAmount", 1);
+        yield return new WaitForSeconds(0.1f);
+        flashMat.SetFloat("_hitFlashAmount", 0);
+    }
+
+
+
+    public void finishedAttack() // animation event executed
+    {
+
+        
+        if (currentState is Attack_State)
+        {
+            changeState(new Decision_State(this));
+        }
+        else
+        {
+            Debug.LogError("This is not an attack state.");
+        }
+    }
 }

@@ -176,6 +176,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameObjectManager
       objectReference: {fileID: 0}
+    - target: {fileID: 6198716609356523469, guid: df4dff62f7fe93646b0141f441c5046b, type: 3}
+      propertyPath: currentWeapon
+      value: 
+      objectReference: {fileID: 11400000, guid: f1a18ac901ecad14db08e43d8d211176, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -285,6 +289,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: DialogueManager
       objectReference: {fileID: 0}
+    - target: {fileID: 7194432583543510630, guid: b5a5f695f6e848a4c9c2b42d61370a72, type: 3}
+      propertyPath: interact.m_Name
+      value: Interact
+      objectReference: {fileID: 0}
     - target: {fileID: 8062669118011165075, guid: b5a5f695f6e848a4c9c2b42d61370a72, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.10529
@@ -343,9 +351,10 @@ GameObject:
   - component: {fileID: 905833620}
   - component: {fileID: 905833621}
   - component: {fileID: 905833622}
+  - component: {fileID: 905833623}
   m_Layer: 6
-  m_Name: Boss Test
-  m_TagString: Untagged
+  m_Name: firstBoss
+  m_TagString: Boss
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -376,7 +385,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
+  - {fileID: 2100000, guid: 85d85ee1cbbc7644789bbea80a478018, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -399,12 +408,12 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 21300000, guid: 561082ef7aedffd45a174509bcb67bd6, type: 3}
+  m_Sprite: {fileID: 1541658732276497080, guid: afb2df7a1e624f84e8f2ef51a21fbead, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.31, y: 0.53}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -439,9 +448,13 @@ MonoBehaviour:
   player: {fileID: 45759749}
   moveSpeed: 0.5
   animator: {fileID: 0}
+  healed: 0
+  health: {fileID: 0}
   stateName: 
-  attackOffset: {x: -2.76, y: -0.08}
-  attackBoxSize: {x: 2.42, y: 3}
+  bossAttacks:
+  - {fileID: 11400000, guid: 241f066b91eda4e4093bf00b6b476114, type: 2}
+  - {fileID: 11400000, guid: 113731b596420c047815e4e6ab1bf30f, type: 2}
+  currentBossAttack: {fileID: 0}
 --- !u!61 &905833621
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -472,21 +485,21 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0.21133333}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 4, y: 4}
-    newSize: {x: 1, y: 1}
+    newSize: {x: 0.31, y: 0.53}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 2.06, y: 3.94}
   m_EdgeRadius: 0
 --- !u!95 &905833622
 Animator:
@@ -510,6 +523,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &905833623
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 905833617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e41ec17967cc9f1448ce8fb225970c4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Health_Component
+  maxHealth: 100
+  _currentHealth: 0
+  _dead: 0
 --- !u!1 &1108953323
 GameObject:
   m_ObjectHideFlags: 0
@@ -704,6 +732,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 9074022714612194907, guid: f7fb0bfdb5d3d3844b7dc3030e7e4851, type: 3}
+      propertyPath: jumpForce
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 9074022714612194907, guid: f7fb0bfdb5d3d3844b7dc3030e7e4851, type: 3}
+      propertyPath: gravityForce
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -717,6 +753,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 303422542099182783, guid: e552b4aa58abdf14d940d3aeae2e9527, type: 3}
+      propertyPath: currentWeapon
+      value: 
+      objectReference: {fileID: 11400000, guid: 4a72fca9272e688489c7c59268e710d6, type: 2}
     - target: {fileID: 2233706841428738026, guid: e552b4aa58abdf14d940d3aeae2e9527, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.10529

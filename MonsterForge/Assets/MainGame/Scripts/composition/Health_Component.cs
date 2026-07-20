@@ -7,19 +7,21 @@ public class Health_Component : MonoBehaviour
     [SerializeField] private float _currentHealth;
     [SerializeField] private bool _dead;
     //get means read only, set is when you are writing to the value.
-    public void Awake()
-    {
-        _currentHealth = maxHealth;
-    }
+    
     public float currentHealth
     {
-        
+
         get => _currentHealth;
     }
     public bool isDead
     {
         get => _dead; // read only
     }
+    public void Awake()
+    {
+        _currentHealth = maxHealth;
+    }
+
 
     private void Start()
     {

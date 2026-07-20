@@ -31,9 +31,9 @@ public class PlayerAttack : MonoBehaviour
 
         
         animator = GetComponent<Animator>();
-        if (GameObjectManager.Instance.currentWeapon != null) // check if GameObjectManager's current weapon is null or not. persists.
+        if (GameManager.Instance.currentWeapon != null) // check if GameObjectManager's current weapon is null or not. persists.
         {
-            EquipWeapon(GameObjectManager.Instance.currentWeapon);
+            EquipWeapon(GameManager.Instance.currentWeapon);
         }
         
 
@@ -99,11 +99,15 @@ public class PlayerAttack : MonoBehaviour
         foreach (Collider2D hit in hitAttack)
         {
             Debug.Log(hit.name);
-            Health_Component entityHp = hit.GetComponent<Health_Component>();
-            if (entityHp != null)
+            dummy_component dummy = hit?.GetComponent<dummy_component>();
+            BossAI bossAI = hit?.GetComponent<BossAI>();
+            if (bossAI != null)
             {
-                entityHp.damageEntity(attackDamage);
-
+                bossAI.takeDamage(attackDamage);
+            }
+            else if (dummy != null)
+            {
+                dummy.damageEntity(attackDamage);
             }
             
         }

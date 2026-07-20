@@ -2,9 +2,7 @@ using UnityEngine;
 
 public class bossTest : BossAI
 {
-    public Vector2 attackOffset;
-    public Vector2 attackBoxSize;
-
+    
     
     public override void Awake()
     {
@@ -18,28 +16,12 @@ public class bossTest : BossAI
 
     public override void Attack() // use this in animationEvent.
     {
-        Vector2 attackPos;
-        if (facingRight())
-        {
-            attackPos = new Vector2(transform.position.x, transform.position.y) + new Vector2(attackOffset.x, attackOffset.y);
 
-        }
-        else
-        {
-            attackPos = new Vector2(transform.position.x * -1, transform.position.y) + new Vector2(attackOffset.x * -1, attackOffset.y);
-        }
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(attackPos, attackBoxSize, 0f);
+        currentBossAttack?.Execute(facingRight(), this);
 
-        foreach (Collider2D collider in colliders)
-        {
-            if (collider.CompareTag("Player"))
-            {
-                Debug.Log("Player has been hit!");
-            }
-        }
     }
 
-    public override void Defend()
+    public override void Defend() // should be some sort of punish maybe? 
     {
         Debug.Log("DEFEND!");
     }
@@ -52,24 +34,25 @@ public class bossTest : BossAI
 
     }
 
-
-    //debug
     private void OnDrawGizmos()
     {
-        Gizmos.color = Color.red;
-        
-        Vector2 hitPosition = (Vector2)transform.position + attackOffset;
-        if (!facingRight())
-        { // if boss is facing left.
-            hitPosition = new Vector2(transform.position.x, transform.position.y) + new Vector2(attackOffset.x, attackOffset.y);
-
-        }
-        else
+        if (currentBossAttack == null)
         {
-            hitPosition = new Vector2(transform.position.x, transform.position.y) + new Vector2(attackOffset.x * -1, attackOffset.y);
+            return;
         }
 
-        Gizmos.DrawWireCube(hitPosition, attackBoxSize);
+        if (currentBossAttack is Melee_BossAttackSO)
+        {
+            Melee_BossAttackSO melee_BossAttack = (Melee_BossAttackSO) currentBossAttack;
+            Gizmos.color = Color.red;
+            
+
+            Gizmos.DrawWireCube(transform.position+(Vector3)melee_BossAttack.gizmoAttackOffset, melee_BossAttack.attackBoxSize);
+        }
+        
     }
+
+
+
 
 }

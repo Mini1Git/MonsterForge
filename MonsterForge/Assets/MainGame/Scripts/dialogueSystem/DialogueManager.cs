@@ -11,17 +11,18 @@ public class DialogueManager : MonoBehaviour
     public GameObject player;
 
     PlayerInput playerInput;
-    InputAction interact;
+    public InputAction interact;
     bool doneOnCompleteEvents = false;
 
     private void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
+        
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject); // Destroy duplicate
             return;
         }
+        DontDestroyOnLoad(this.gameObject);
         Instance = this;
         playerInput = new PlayerInput();
     }
@@ -29,11 +30,12 @@ public class DialogueManager : MonoBehaviour
     {
         interact = playerInput.Player.Interact; 
         interact.Enable();
-
+        
     }
     private void OnDisable()
     {
-        interact.Disable();
+        interact?.Disable();
+        
     }
     public void setCurrentNPC(NPCDialogue_Controller npc)
     {
@@ -87,15 +89,16 @@ public class DialogueManager : MonoBehaviour
     }
     private void Update()
     {
-        if (current_Npc != null)
-        {
-            interact.performed += goNextDialogue; // basically if player hits "e"
-        }
-        else
-        {
-            interact.performed -= goNextDialogue;
-        }
         
+        
+    }
+    public void Subscribe() // subs to the function.
+    {
+        interact.performed += goNextDialogue;
+    }
+    public void Unsubscribe()
+    {
+        interact.performed -= goNextDialogue;
     }
 
     public void goNextDialogue(InputAction.CallbackContext context) {

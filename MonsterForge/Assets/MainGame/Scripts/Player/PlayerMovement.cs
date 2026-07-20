@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -7,9 +8,17 @@ public class PlayerMovement : MonoBehaviour
     public PlayerInput playerInput;
     
     public float speed = 10;
-    public float jumpForce = 100;
+    
     [SerializeField] LayerMask LayerGround;
+    
     public bool flipped = false;
+    [Header("Jump settings")]
+    public float jumpForce = 100;
+    [SerializeField] 
+    private float fallMultiplier = 10;
+    [SerializeField]
+    private float lowJumpMultiplier = 5;
+
     InputAction move;
     InputAction jump;
     float extendedBoxDown = 0.2f;
@@ -79,17 +88,29 @@ public class PlayerMovement : MonoBehaviour
         Debug.DrawRay(boxCollider.bounds.center - new Vector3(boxCollider.bounds.extents.x - 0.1f, 0), Vector2.down * (boxCollider.bounds.extents.y + extendedBoxDown), Color.blue); // left
         Debug.DrawRay(boxCollider.bounds.center - new Vector3(boxCollider.bounds.extents.x, boxCollider.bounds.extents.y + extendedBoxDown), Vector2.right * (boxCollider.bounds.extents.x * 2f), Color.blue); // bottom
 
-    }
-
-    private void FixedUpdate()
-    {
-        rb.linearVelocityX = moveDir * speed;
-        if (rb.linearVelocityX == 0)
+        if (rb.linearVelocityX == 0 || !IsGrounded()) // if ur standing still or are not grounded.
         {
             animator.SetBool("move_Bool", false);
         }
-        else {
+        else
+        {
             animator.SetBool("move_Bool", true);
+        }
+
+    }
+    
+    private void FixedUpdate()
+    {
+        rb.linearVelocityX = moveDir * speed;
+        
+        if (rb.linearVelocityY < 0) // if falling
+        {
+            rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+        }
+        //check if jump not being held down and going up
+        else if (rb.linearVelocityY > 0 && jump.ReadValue<float>() == 0)
+        {
+            rb.linearVelocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1) * Time.deltaTime;
         }
     }
 
@@ -97,13 +118,12 @@ public class PlayerMovement : MonoBehaviour
     {
         if (IsGrounded())
         {
-            Debug.Log("JUMP");
-        
+
             rb.linearVelocityY = jumpForce;
+            
             
         }
         
-
     }
 
     public bool IsGrounded()
