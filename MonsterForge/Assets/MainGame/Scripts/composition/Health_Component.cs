@@ -23,9 +23,13 @@ public class Health_Component : MonoBehaviour
     }
 
 
-    private void Start()
+   public virtual void healEntity(float healAmount)
     {
-
+        _currentHealth += healAmount;
+        if (_currentHealth > maxHealth)
+        {
+            _currentHealth = maxHealth;
+        }
     }
     public virtual void damageEntity(float damage)
     {

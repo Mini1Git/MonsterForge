@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using Unity.Jobs;
 using UnityEngine;
 using UnityEngine.Timeline;
 using UnityEngine.XR;
@@ -287,6 +288,13 @@ public abstract class BossAI : MonoBehaviour
     public  Animator animator;
     public bool healed = false;
     public Health_Component health;
+    public BossAttackSO currentBossAttack;
+    public BossAttackSO[] bossAttacks;
+    [Header("Boss Behavior Settings")]
+    public float healthTolerance = 50;
+    public float maxDistanceToPlayer = 3;
+    public Vector2 attackPos;
+    public bool facingRight_Bool = false;
 
     protected SpriteRenderer spriteRenderer;
     protected Boss_State currentState; // only children and this class can use.
@@ -294,9 +302,8 @@ public abstract class BossAI : MonoBehaviour
     private string stateName;
     Coroutine hitFlashRoutine;
     Material flashMat;
-    public BossAttackSO[] bossAttacks;
+    
 
-    public BossAttackSO currentBossAttack;
 
     public virtual void Awake()
     {
@@ -305,11 +312,18 @@ public abstract class BossAI : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         flashMat = spriteRenderer.material;
         
+        //foreach (BossAttackSO boss_attack in bossAttacks)
+        //{
+        //    GameObject bossAttackGameObject = new GameObject(boss_attack.name);
+        //    bossAttackGameObject.transform.parent = transform; 
+        //if too lazy to add them urself lol.
+        //}
+
     }
     public virtual void changeState(Boss_State state)
     {
-        Debug.LogWarning($"STATE CHANGE: {currentState?.GetType().Name} -> {state.GetType().Name}");
-        currentState?.ExitState(); // culprit here, weird bug here!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! 
+        //Debug.Log($"STATE CHANGE: {currentState?.GetType().Name} -> {state.GetType().Name}");
+        currentState?.ExitState(); 
         currentState = state;
 
         stateName = currentState.GetType().Name; // get the name of the state. 
@@ -319,6 +333,7 @@ public abstract class BossAI : MonoBehaviour
     public virtual void Update()
     {
         flipSprite();
+        facingRight_Bool = facingRight();
         currentState?.UpdateState();
     }
 
@@ -356,7 +371,7 @@ public abstract class BossAI : MonoBehaviour
         }
     }
 
-    public void takeDamage(float damage) {
+    public void TakeDamage(float damage) {
         Health_Component hp = GetComponent<Health_Component>();
         hp.damageEntity(damage); // does the damage.
         if (!hp.isDead) // if the boss is not dead.
@@ -385,7 +400,9 @@ public abstract class BossAI : MonoBehaviour
     }
 
 
-
+    public void Heal() {
+        health.healEntity(50);
+    }
     public void finishedAttack() // animation event executed
     {
 

@@ -52,7 +52,7 @@ public class arrowLogic : MonoBehaviour
             }
             else if (collision.CompareTag("Boss"))
             {
-                collision.GetComponent<BossAI>().takeDamage(GameObjectManager.Instance.arrowDamage);
+                collision.GetComponent<BossAI>().TakeDamage(GameObjectManager.Instance.arrowDamage);
                 GameObject.Destroy(gameObject);
                 return;
             }

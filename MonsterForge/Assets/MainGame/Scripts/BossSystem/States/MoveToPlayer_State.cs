@@ -10,7 +10,7 @@ public class MoveToPlayer_State : Boss_State
     public override void EnterState()
     {
         bossAI.animator.SetBool("moving", true);
-        Debug.Log("MOVING TOWARDS PLAYER");
+        
     }
 
     public override void ExitState()
@@ -25,7 +25,7 @@ public class MoveToPlayer_State : Boss_State
         float distance = Mathf.Abs( bossAI.transform.position.x - bossAI.player.transform.position.x); // horizontal
         
 
-        if (distance <= 3f)
+        if (distance <= bossAI.maxDistanceToPlayer)
         {
             bossAI.changeState(new Decision_State(bossAI));
         }

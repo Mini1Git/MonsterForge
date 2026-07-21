@@ -2,36 +2,31 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "Melee_BossAttackSO", menuName = "Boss Attacks/Melee/Melee_BossAttackSO")]
 public class Melee_BossAttackSO : BossAttackSO {
-
+    public float damage = 10;
     public Vector2 attackOffset;
     public Vector2 attackBoxSize;
-    [HideInInspector]
-    public Vector2 gizmoAttackOffset;
+    public Sprite attackFrame;
 
     public override void Execute(bool lookRight, BossAI boss)
     {
+        Vector2 attackPosition;
 
-        Debug.Log("EXECUTED BOSS ATTACK");
-        Vector2 attackPos;
         if (lookRight)
         {
-            attackPos = new Vector2(boss.transform.position.x, boss.transform.position.y) + new Vector2(attackOffset.x, attackOffset.y);
-            gizmoAttackOffset = new Vector2(attackOffset.x, attackOffset.y);
+            attackPosition = (Vector2)boss.transform.position + attackOffset;
         }
         else
         {
-            attackPos = new Vector2(boss.transform.position.x, boss.transform.position.y) + new Vector2(attackOffset.x * -1, attackOffset.y);
-            gizmoAttackOffset = new Vector2(attackOffset.x * -1, attackOffset.y);
+            attackPosition = new Vector2(boss.transform.position.x - attackOffset.x, boss.transform.position.y + attackOffset.y);
         }
-
-        
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(attackPos, attackBoxSize, 0f);
-
-        foreach (Collider2D collider in colliders)
+        Debug.Log($"{attackPosition} is where {this.name} is attacking!");
+       Collider2D[] colliders = Physics2D.OverlapBoxAll(attackPosition, attackBoxSize,0);
+       foreach (Collider2D collider in colliders)
         {
             if (collider.CompareTag("Player"))
             {
-                Debug.Log("Player has been hit!");
+                Debug.LogWarning($"{this.name}: Hit the player!");
+                collider.GetComponent<PlayerHealth>().damageEntity(damage);
             }
         }
     }

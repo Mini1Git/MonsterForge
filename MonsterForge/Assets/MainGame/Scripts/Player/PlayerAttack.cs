@@ -103,7 +103,7 @@ public class PlayerAttack : MonoBehaviour
             BossAI bossAI = hit?.GetComponent<BossAI>();
             if (bossAI != null)
             {
-                bossAI.takeDamage(attackDamage);
+                bossAI.TakeDamage(attackDamage);
             }
             else if (dummy != null)
             {

@@ -1,13 +1,14 @@
+using System.Net;
 using UnityEngine;
 
 public class bossTest : BossAI
 {
-    
-    
+
     public override void Awake()
     {
         base.Awake();
         
+
     }
     public void Start()
     {
@@ -16,14 +17,14 @@ public class bossTest : BossAI
 
     public override void Attack() // use this in animationEvent.
     {
-
+        
         currentBossAttack?.Execute(facingRight(), this);
-
+        
     }
 
     public override void Defend() // should be some sort of punish maybe? 
     {
-        Debug.Log("DEFEND!");
+        // bleh
     }
     public override void Move()
     {
@@ -34,23 +35,7 @@ public class bossTest : BossAI
 
     }
 
-    private void OnDrawGizmos()
-    {
-        if (currentBossAttack == null)
-        {
-            return;
-        }
-
-        if (currentBossAttack is Melee_BossAttackSO)
-        {
-            Melee_BossAttackSO melee_BossAttack = (Melee_BossAttackSO) currentBossAttack;
-            Gizmos.color = Color.red;
-            
-
-            Gizmos.DrawWireCube(transform.position+(Vector3)melee_BossAttack.gizmoAttackOffset, melee_BossAttack.attackBoxSize);
-        }
-        
-    }
+    
 
 
 

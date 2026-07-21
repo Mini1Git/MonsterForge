@@ -14,8 +14,8 @@ GameObject:
   - component: {fileID: 7506387725452186464}
   - component: {fileID: 3452149619765012505}
   - component: {fileID: 9074022714612194907}
-  - component: {fileID: 2047407321435776012}
   - component: {fileID: 105393238687538564}
+  - component: {fileID: 6065303597630009451}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -206,26 +206,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   speed: 5
-  jumpForce: 10
   LayerGround:
     serializedVersion: 2
     m_Bits: 8
   flipped: 0
---- !u!114 &2047407321435776012
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 147260988760758770}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e41ec17967cc9f1448ce8fb225970c4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::health
-  maxHealth: 100
-  _currentHealth: 0
-  _dead: 0
+  jumpForce: 10
+  fallMultiplier: 10
+  lowJumpMultiplier: 5
 --- !u!114 &105393238687538564
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,6 +231,21 @@ MonoBehaviour:
   layersEnemies:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &6065303597630009451
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 147260988760758770}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fc2f49dde5f11934aada911cb8df320f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  maxHealth: 100
+  _currentHealth: 0
+  _dead: 0
 --- !u!1 &2417750670757584019
 GameObject:
   m_ObjectHideFlags: 0

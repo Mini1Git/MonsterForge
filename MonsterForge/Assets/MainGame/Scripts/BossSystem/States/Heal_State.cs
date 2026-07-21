@@ -7,15 +7,18 @@ public class Heal_State : Boss_State
     public override void EnterState()
     {
         Debug.LogWarning("HEALING!");
+        bossAI.Heal();
+        //canMove = false
     }
 
-    public override void ExitState()
+    public override void ExitState()//we have no exit.
     {
         Debug.Log("LEAVING HEALTH");
+        //canMove = true
     }
 
     public override void UpdateState()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("HEAL UPDATE!");
     }
 }
