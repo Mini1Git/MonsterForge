@@ -26,7 +26,7 @@ public class Decision_State : Boss_State
             return;
         }
 
-        else if (randoNum < 0.7f)
+        else if (randoNum < 0.8f)
         {
             bossAI.changeState(new Attack_State(bossAI));
             return;

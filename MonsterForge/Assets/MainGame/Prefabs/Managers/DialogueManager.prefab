@@ -49,6 +49,15 @@ MonoBehaviour:
   current_Npc: {fileID: 0}
   indexDialogue: 0
   player: {fileID: 0}
+  interact:
+    m_Name: Interact
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 948f77f1-8191-4e5b-9b81-4a8f02fbcfc8
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!1 &7774614798496693193
 GameObject:
   m_ObjectHideFlags: 0

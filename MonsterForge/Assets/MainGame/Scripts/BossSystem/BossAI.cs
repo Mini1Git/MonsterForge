@@ -407,6 +407,7 @@ public abstract class BossAI : MonoBehaviour
 
     public void Heal() {
         health.healEntity(50);
+
     }
     public void finishedAttack() // animation event executed
     {

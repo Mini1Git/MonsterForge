@@ -8,8 +8,10 @@ public class Heal_State : Boss_State
     {
         timer = 2f;
         Debug.LogWarning("HEALING!");
-        bossAI.Heal();
+        
         //canMove = false
+        bossAI.animator.SetTrigger("heal");
+        
     }
 
     public override void ExitState()//we have no exit.

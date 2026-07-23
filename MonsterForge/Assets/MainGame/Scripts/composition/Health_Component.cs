@@ -30,6 +30,7 @@ public class Health_Component : MonoBehaviour
         {
             _currentHealth = maxHealth;
         }
+        UIManager.Instance.updateHealthUI();
     }
     public virtual void damageEntity(float damage)
     {
@@ -39,6 +40,8 @@ public class Health_Component : MonoBehaviour
             _dead = true;
             Debug.Log(gameObject.name + " Has died!");
             gameObject.SetActive(false);
+
         }
+        UIManager.Instance.updateHealthUI();
     }
 }
