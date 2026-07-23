@@ -27,8 +27,8 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D rb;
     BoxCollider2D boxCollider;
     Animator animator;
-    
     bool isFacingRight = true;
+    
     
     private void Awake()
     {
@@ -46,11 +46,23 @@ public class PlayerMovement : MonoBehaviour
         move = playerInput.Player.Move;
         jump = playerInput.Player.Jump;
 
-        move.Enable();
-        jump.Enable();
+        if (GameObject.FindGameObjectWithTag("Boss") == null)
+        {
+            unfreezeMovement();
+        }
 
         jump.performed += Jump; // register the function Jump to when the "playerInput.Player.Jump" keybinding is pressed.
 
+    }
+    public void unfreezeMovement()
+    {
+        move.Enable();
+        jump.Enable();
+    }
+    public void freezeMovement()
+    {
+        move.Disable();
+        jump.Disable();
     }
     private void OnDisable()
     {

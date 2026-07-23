@@ -9,9 +9,9 @@ public class Defend_State : Boss_State
     }
     public override void EnterState()
     {
+        bossAI.animator.SetBool("moving", true);
         
         timer = 2f;
-        bossAI.Defend();
     }
 
     public override void ExitState()
@@ -21,11 +21,13 @@ public class Defend_State : Boss_State
 
     public override void UpdateState()
     {
-        
-        
-        
+
+
+        bossAI.Defend(); // ok basically, we'll want to move away from the player.
+
         if (TimerFinished())
         {
+            
             bossAI.changeState(new Decision_State(bossAI));
         }
     }

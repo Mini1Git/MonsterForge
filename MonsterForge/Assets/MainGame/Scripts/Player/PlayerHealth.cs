@@ -6,6 +6,7 @@ public class PlayerHealth : Health_Component
     {
         Debug.Log($"Damaged the player for {damage}");
         base.damageEntity(damage);
-        //do player stuff.
+        // UI updates
+        UIManager.Instance.updateHealthUI();
     }
 }

@@ -51,6 +51,9 @@ public class Door_Component : MonoBehaviour
         {
             Debug.Log($"Entering {sceneName}");
             SceneManager.LoadScene(sceneName);
+            UIManager.Instance.findNewHealthBars();
+            UIManager.Instance.updateHealthUI();
+            
         }
         else
         {

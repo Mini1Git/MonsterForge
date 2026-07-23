@@ -31,9 +31,13 @@ public class PlayerAttack : MonoBehaviour
 
         
         animator = GetComponent<Animator>();
-        if (GameManager.Instance.currentWeapon != null) // check if GameObjectManager's current weapon is null or not. persists.
+
+        if (GameManager.Instance != null)
         {
-            EquipWeapon(GameManager.Instance.currentWeapon);
+            if (GameManager.Instance.currentWeapon != null) // check if GameObjectManager's current weapon is null or not. persists.
+            {
+                EquipWeapon(GameManager.Instance.currentWeapon);
+            }
         }
         
 
@@ -104,6 +108,7 @@ public class PlayerAttack : MonoBehaviour
             if (bossAI != null)
             {
                 bossAI.TakeDamage(attackDamage);
+                
             }
             else if (dummy != null)
             {

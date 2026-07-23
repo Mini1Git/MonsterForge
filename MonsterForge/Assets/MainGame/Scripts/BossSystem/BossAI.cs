@@ -283,27 +283,31 @@ FSM controls the flow of combat.
 
 public abstract class BossAI : MonoBehaviour
 {
+    public string bossName;
+    [HideInInspector]
     public GameObject player;
-    public float moveSpeed = 10f;
-    public  Animator animator;
-    public bool healed = false;
+    [HideInInspector]
+    public Animator animator;
+    [HideInInspector]
     public Health_Component health;
     public BossAttackSO currentBossAttack;
     public BossAttackSO[] bossAttacks;
     [Header("Boss Behavior Settings")]
+    public float moveSpeed = 0.5f;
     public float healthTolerance = 50;
+    public bool healed = false;
     public float maxDistanceToPlayer = 3;
     public Vector2 attackPos;
     public bool facingRight_Bool = false;
 
     protected SpriteRenderer spriteRenderer;
-    protected Boss_State currentState; // only children and this class can use.
+    protected Boss_State currentState; // protected means only children and this class can use.
     [SerializeField]
     private string stateName;
     Coroutine hitFlashRoutine;
     Material flashMat;
-    
 
+    
 
     public virtual void Awake()
     {
@@ -311,7 +315,6 @@ public abstract class BossAI : MonoBehaviour
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         flashMat = spriteRenderer.material;
-        
         //foreach (BossAttackSO boss_attack in bossAttacks)
         //{
         //    GameObject bossAttackGameObject = new GameObject(boss_attack.name);
@@ -320,6 +323,7 @@ public abstract class BossAI : MonoBehaviour
         //}
 
     }
+    
     public virtual void changeState(Boss_State state)
     {
         //Debug.Log($"STATE CHANGE: {currentState?.GetType().Name} -> {state.GetType().Name}");
@@ -374,6 +378,7 @@ public abstract class BossAI : MonoBehaviour
     public void TakeDamage(float damage) {
         Health_Component hp = GetComponent<Health_Component>();
         hp.damageEntity(damage); // does the damage.
+        UIManager.Instance.updateHealthUI();
         if (!hp.isDead) // if the boss is not dead.
         {
             

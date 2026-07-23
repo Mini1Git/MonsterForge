@@ -6,6 +6,7 @@ public class Decision_State : Boss_State
     
     public Decision_State(BossAI boss): base(boss)
     {
+        bossAI.animator.SetBool("moving", false);
     }
     public override void EnterState()
     {

@@ -12,6 +12,9 @@ TagManager:
   - dummy
   - Wall+Floor
   - Boss
+  - PlayerHP
+  - BossHP
+  - Fill
   layers:
   - Default
   - TransparentFX
