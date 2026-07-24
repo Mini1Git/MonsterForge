@@ -19,14 +19,25 @@ public class Melee_BossAttackSO : BossAttackSO {
         {
             attackPosition = new Vector2(boss.transform.position.x - attackOffset.x, boss.transform.position.y + attackOffset.y);
         }
-        Debug.Log($"{attackPosition} is where {this.name} is attacking!");
+       
        Collider2D[] colliders = Physics2D.OverlapBoxAll(attackPosition, attackBoxSize,0);
        foreach (Collider2D collider in colliders)
         {
+            
             if (collider.CompareTag("Player"))
             {
-                Debug.LogWarning($"{this.name}: Hit the player!");
-                collider.GetComponent<PlayerHealth>().damageEntity(damage);
+                if (collider.GetComponent<PlayerAttack>().isParrying)
+                {
+                    
+                    boss.changeState(new Parried_State(boss));
+                    return;
+                    
+                }
+                else
+                {
+                    collider.GetComponent<PlayerHealth>().damageEntity(damage);
+                }
+                    
             }
         }
     }

@@ -18,11 +18,13 @@ public class signalEvents : MonoBehaviour
         if (freezed)
         {
             player.GetComponent<PlayerMovement>().freezeMovement();
+            player.GetComponent<PlayerAttack>().disableAttack();
             UIManager.Instance.hideHealthUI(true);
         }
         else
         {
             player.GetComponent<PlayerMovement>().unfreezeMovement();
+            player.GetComponent<PlayerAttack>().enableAttack();
             UIManager.Instance.hideHealthUI(false);
         }
     }

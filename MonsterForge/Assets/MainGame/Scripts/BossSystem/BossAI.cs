@@ -336,6 +336,7 @@ public abstract class BossAI : MonoBehaviour
     }
     public virtual void Update()
     {
+        
         flipSprite();
         facingRight_Bool = facingRight();
         currentState?.UpdateState();
@@ -409,6 +410,7 @@ public abstract class BossAI : MonoBehaviour
         health.healEntity(50);
 
     }
+    
     public void finishedAttack() // animation event executed
     {
 
@@ -419,7 +421,8 @@ public abstract class BossAI : MonoBehaviour
         }
         else
         {
-            Debug.LogError("This is not an attack state.");
+            Debug.LogWarning($"This is not an attack state, {currentState}");
         }
     }
+
 }

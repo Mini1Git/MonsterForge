@@ -894,9 +894,8 @@ MonoBehaviour:
   health: {fileID: 0}
   currentBossAttack: {fileID: 0}
   bossAttacks:
-  - {fileID: 11400000, guid: 241f066b91eda4e4093bf00b6b476114, type: 2}
   - {fileID: 11400000, guid: 113731b596420c047815e4e6ab1bf30f, type: 2}
-  moveSpeed: 0.5
+  moveSpeed: 5
   healthTolerance: 40
   healed: 0
   maxDistanceToPlayer: 1.5
@@ -1536,6 +1535,14 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 105393238687538564, guid: f7fb0bfdb5d3d3844b7dc3030e7e4851, type: 3}
+      propertyPath: isParrying
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 105393238687538564, guid: f7fb0bfdb5d3d3844b7dc3030e7e4851, type: 3}
+      propertyPath: parryWindow
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 105393238687538564, guid: f7fb0bfdb5d3d3844b7dc3030e7e4851, type: 3}
       propertyPath: weaponEquipped
       value: 
       objectReference: {fileID: 11400000, guid: 2d990b02f0a5e4a44980e4e521a59c06, type: 2}
@@ -1544,8 +1551,16 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 6065303597630009451, guid: f7fb0bfdb5d3d3844b7dc3030e7e4851, type: 3}
+      propertyPath: godMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6065303597630009451, guid: f7fb0bfdb5d3d3844b7dc3030e7e4851, type: 3}
       propertyPath: _currentHealth
       value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 9074022714612194907, guid: f7fb0bfdb5d3d3844b7dc3030e7e4851, type: 3}
+      propertyPath: speed
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 9074022714612194907, guid: f7fb0bfdb5d3d3844b7dc3030e7e4851, type: 3}
       propertyPath: jumpForce
@@ -1699,8 +1714,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCamera
   Priority:
-    Enabled: 0
-    m_Value: 0
+    Enabled: 1
+    m_Value: 1
   OutputChannel: 1
   StandbyUpdate: 2
   m_StreamingVersion: 20241001
@@ -1966,8 +1981,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 365190782}
   - {fileID: 1701446106}
+  - {fileID: 365190782}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2096870115

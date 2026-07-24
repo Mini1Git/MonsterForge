@@ -3,15 +3,20 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerAttack : MonoBehaviour
-{   
-    
+{
+    [Header("Parrying Settings")]
+    public float parryWindow = 1f;
+    public bool isParrying = false;
+    [Header("Attack Settings")]
     public float attackDamage = 0;
     public Transform attackRef;
     private Vector2 attackSize = Vector2.one;
 
     public Weapon_SO weaponEquipped;
+
     PlayerInput playerInput;
     InputAction attack;
+    InputAction parry;
     bool armed = false;
     
     public LayerMask layersEnemies;
@@ -47,23 +52,46 @@ public class PlayerAttack : MonoBehaviour
     private void OnEnable()
     {
         attack = playerInput.Player.Attack;
-        
-        attack.Enable();
+        parry = playerInput.Player.Parry;
 
+        if (GameObject.FindGameObjectWithTag("Boss") == null)
+        {
+            enableAttack();
+        }
+
+
+        parry.performed += startParryAttack;
         attack.performed += startAttack;
     }
 
+
+    public void enableAttack()
+    {
+        parry.Enable();
+        attack.Enable();
+    }
+    public void disableAttack()
+    {
+        parry.Disable();
+        attack.Disable();
+    }
     private void OnDisable()
     {
         attack.Disable();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void startParryAttack(InputAction.CallbackContext context)
     {
 
+        StartCoroutine(parryAttack());
     }
 
+    IEnumerator parryAttack()
+    {
+        isParrying = true;
+        yield return new WaitForSeconds(parryWindow);
+        isParrying = false;
+    }
     public void startAttack(InputAction.CallbackContext context)
     {
         if (armed)

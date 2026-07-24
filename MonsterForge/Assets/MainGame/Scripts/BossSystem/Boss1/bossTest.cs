@@ -33,7 +33,7 @@ public class bossTest : BossAI
     public override void Move()
     {
         
-        Vector3 direction = new Vector3((player.transform.position.x - transform.position.x), 0,0);
+        Vector3 direction = new Vector3((player.transform.position.x - transform.position.x), 0,0).normalized;
         //moves horizontally to close distance to player.
         transform.position += direction * moveSpeed * Time.deltaTime;
 

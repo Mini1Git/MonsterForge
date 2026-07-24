@@ -1,5 +1,6 @@
 using Unity.VisualScripting.FullSerializer;
 using UnityEngine;
+using static UnityEngine.RuleTile.TilingRuleOutput;
 
 public class Defend_State : Boss_State
 {
@@ -11,7 +12,6 @@ public class Defend_State : Boss_State
     {
         bossAI.animator.SetBool("moving", true);
         
-        timer = 2f;
     }
 
     public override void ExitState()
@@ -24,8 +24,8 @@ public class Defend_State : Boss_State
 
 
         bossAI.Defend(); // ok basically, we'll want to move away from the player.
-
-        if (TimerFinished())
+        float distance = Mathf.Abs(bossAI.transform.position.x - bossAI.player.transform.position.x);
+        if (distance > bossAI.maxDistanceToPlayer*3)
         {
             
             bossAI.changeState(new Decision_State(bossAI));
