@@ -15,6 +15,7 @@ TagManager:
   - PlayerHP
   - BossHP
   - Fill
+  - SHIELD
   layers:
   - Default
   - TransparentFX

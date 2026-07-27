@@ -9,7 +9,7 @@ public class Door_Component : MonoBehaviour
     InputAction interact;
     public GameObject textPrompt;
     public string sceneName;
-    bool isUnlocked;
+    bool isUnlocked = true;
     
     private void Awake()
     {
@@ -51,8 +51,6 @@ public class Door_Component : MonoBehaviour
         {
             Debug.Log($"Entering {sceneName}");
             SceneManager.LoadScene(sceneName);
-            UIManager.Instance.findNewHealthBars();
-            UIManager.Instance.updateHealthUI();
             
         }
         else

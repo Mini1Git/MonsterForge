@@ -1253,7 +1253,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::dummy_component
   maxHealth: 10000
-  _currentHealth: 0
+  _currentHealth: 10000
   _dead: 0
   canvasObj: {fileID: 238307586}
   textNum: {fileID: 5150760260561378580, guid: 93f03196190b3d24ca4104e53f838d5f, type: 3}

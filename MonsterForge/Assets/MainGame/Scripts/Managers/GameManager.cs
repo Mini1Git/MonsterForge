@@ -40,6 +40,7 @@ public class GameManager : MonoBehaviour
 
     private void SetupUI()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         UIManager.Instance.findNewHealthBars();
         UIManager.Instance.updateHealthUI();
     }

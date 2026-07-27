@@ -6,6 +6,7 @@ public class Melee_BossAttackSO : BossAttackSO {
     public Vector2 attackOffset;
     public Vector2 attackBoxSize;
     public Sprite attackFrame;
+    
 
     public override void Execute(bool lookRight, BossAI boss)
     {
@@ -23,21 +24,20 @@ public class Melee_BossAttackSO : BossAttackSO {
        Collider2D[] colliders = Physics2D.OverlapBoxAll(attackPosition, attackBoxSize,0);
        foreach (Collider2D collider in colliders)
         {
-            
-            if (collider.CompareTag("Player"))
+
+            if (collider.CompareTag("SHIELD"))
             {
-                if (collider.GetComponent<PlayerAttack>().isParrying)
+                if (collider.GetComponentInParent<PlayerAttack>().isParrying)
                 {
-                    
                     boss.changeState(new Parried_State(boss));
                     return;
-                    
+
                 }
-                else
-                {
-                    collider.GetComponent<PlayerHealth>().damageEntity(damage);
-                }
-                    
+
+            }
+            else if (collider.CompareTag("Player"))
+            {
+                collider.GetComponentInParent<PlayerHealth>().damageEntity(damage);
             }
         }
     }

@@ -10,9 +10,11 @@ public class Parried_State : Boss_State
 
     public override void EnterState()
     {
-        Debug.LogWarning($"GOD PARRY from {bossAI.currentBossAttack}");
-        bossAI.animator.Play("Parried");
-        
+        bossAI.player.GetComponent<PlayerAttack>().parryEffect();
+        bossAI.animator.SetTrigger("parried"); // draw a stunned reaction ig.
+
+
+        bossAI.hitFlash(0.2f);
     }
 
 

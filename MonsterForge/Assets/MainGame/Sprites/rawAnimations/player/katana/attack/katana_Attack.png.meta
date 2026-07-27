@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: 08246382969c2e84b8d644abc7c2e508
+guid: b0dbfb055e1896a4391dc3752e8d0373
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3155862372635440515
-    second: katana_attack0000_0
+      213: 8275430305217718628
+    second: katana_Attack_0
+  - first:
+      213: -2831631356696684943
+    second: katana_Attack_1
+  - first:
+      213: -3200476175347024239
+    second: katana_Attack_2
+  - first:
+      213: -6127016031001175495
+    second: katana_Attack_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +84,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,23 +109,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: katana_attack0000_0
+      name: katana_Attack_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 64
         height: 64
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      alignment: 9
+      pivot: {x: 0.5082045, y: 0.2711059}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 385f4f08b10ebcb20800000000000000
-      internalID: 3155862372635440515
+      spriteID: 469210a740c38d270800000000000000
+      internalID: 8275430305217718628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: katana_Attack_1
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5082045, y: 0.2711059}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1769c31a84604b8d0800000000000000
+      internalID: -2831631356696684943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: katana_Attack_2
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5082045, y: 0.2711059}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 19ef65810ef9593d0800000000000000
+      internalID: -3200476175347024239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: katana_Attack_3
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 64
+        height: 64
+      alignment: 9
+      pivot: {x: 0.5082045, y: 0.2711059}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 93a1d03d16778faa0800000000000000
+      internalID: -6127016031001175495
       vertices: []
       indices: 
       edges: []
@@ -125,7 +200,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: b80e3fba949172d43ab4cc5179f1dc23
+    spriteID: 52f663d0ee9cbf64da056f584689bbca
     internalID: 0
     vertices: []
     indices: 
@@ -135,9 +210,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5082045197486877,"y":0.27110588550567629},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":9,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      katana_attack0000_0: 3155862372635440515
+      katana_Attack_0: 8275430305217718628
+      katana_Attack_1: -2831631356696684943
+      katana_Attack_2: -3200476175347024239
+      katana_Attack_3: -6127016031001175495
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

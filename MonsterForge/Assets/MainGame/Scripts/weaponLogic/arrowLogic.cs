@@ -13,7 +13,7 @@ public class arrowLogic : MonoBehaviour
         arrowFly = GetComponent<Rigidbody2D>();
         transform.parent = null;
         PlayerMovement pm = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
-        if (pm.flipped)
+        if (!pm.isFacingRight)
         {
             goRight = false;
         }

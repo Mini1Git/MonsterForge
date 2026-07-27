@@ -5,30 +5,39 @@ using UnityEngine.InputSystem;
 public class PlayerAttack : MonoBehaviour
 {
     [Header("Parrying Settings")]
+    public float parryCooldown;
     public float parryWindow = 1f;
     public bool isParrying = false;
     [Header("Attack Settings")]
     public float attackDamage = 0;
     public Transform attackRef;
     private Vector2 attackSize = Vector2.one;
-
+    private bool canParry = true;
     public Weapon_SO weaponEquipped;
-
-    PlayerInput playerInput;
-    InputAction attack;
-    InputAction parry;
-    bool armed = false;
-    
     public LayerMask layersEnemies;
-    Animator animator;
-
-
-
+    [SerializeField]
+    private float parryEffect_Duration;
+    private PlayerMovement movement;
+    private PlayerInput playerInput;
+    private InputAction attack;
+    private InputAction parry;
+    private bool armed = false;
+    [Header("Particle SHIELD")]
+    [SerializeField]
+    private ParticleSystem parryShield; // this is the actual prefab
+    private ParticleSystem.MainModule mainParryShield; // this is main module so we can modify...
+    private ParticleSystem parryShield_INSTANCE;//temp var to easily destroy. Instance of parryShield.
+    private Animator animator;
+    private Coroutine parryCoroutine;
+    private bool parrySuccess = false;
     private void Awake()
     {
-
+        movement = GetComponent<PlayerMovement>();
         
         playerInput = new PlayerInput();
+        mainParryShield = parryShield.main;
+
+        mainParryShield.duration = parryWindow-0.1f; // this modifys the actual prefab. not instance.
 
     }
     void Start()
@@ -56,11 +65,11 @@ public class PlayerAttack : MonoBehaviour
 
         if (GameObject.FindGameObjectWithTag("Boss") == null)
         {
-            enableAttack();
+            disableAttack();
         }
 
 
-        parry.performed += startParryAttack;
+        parry.performed += startParry;
         attack.performed += startAttack;
     }
 
@@ -78,19 +87,99 @@ public class PlayerAttack : MonoBehaviour
     private void OnDisable()
     {
         attack.Disable();
+        parry.Disable();
     }
 
-    public void startParryAttack(InputAction.CallbackContext context)
-    {
+    
 
-        StartCoroutine(parryAttack());
+    public void startParry(InputAction.CallbackContext context) // use to animation based event
+    {
+        
+        if (!canParry)
+            return;
+
+        StartCoroutine(ParryAttack());
     }
 
-    IEnumerator parryAttack()
+    IEnumerator ParryAttack() 
     {
+        if (parryShield_INSTANCE != null)
+        {
+            Debug.Log("Destroying parry!");
+            GameObject.Destroy(parryShield_INSTANCE.gameObject); // destroy the existing one, if succesful parry
+        }
+        var parryShieldShape = parryShield.shape; // shape modifier
+        
+        //animation here.
+        if (movement.isFacingRight)
+        {
+
+            parryShieldShape.rotation = new Vector3(parryShieldShape.rotation.x, -30, 0);
+            parryShield_INSTANCE = Instantiate(parryShield, this.gameObject.transform);
+        }
+        else
+        {
+            
+            parryShieldShape.rotation = new Vector3(parryShieldShape.rotation.x,-137,0);
+            parryShield_INSTANCE = Instantiate(parryShield, this.gameObject.transform);
+        }
+
+        canParry = false;
         isParrying = true;
+
         yield return new WaitForSeconds(parryWindow);
-        isParrying = false;
+
+        isParrying = false;//punish
+        if (!parrySuccess)
+        {
+            Debug.LogWarning($"Destroying {parryShield_INSTANCE.name}");
+            GameObject.Destroy(parryShield_INSTANCE.gameObject);
+        }
+        
+        yield return new WaitForSeconds(parryCooldown);
+
+        
+        canParry = true;
+        parrySuccess = false;
+    }
+    public void parryEffect()
+    {
+        parrySuccess = true;
+        parryShield_INSTANCE.Stop(); //so even tho it stopped, it's still in the scene.
+        parryShield_INSTANCE.Clear(); // clears the active particles
+        
+        //particle system attributes.
+        ParticleSystem.MainModule parryShieldINSTANCE_MAIN = parryShield_INSTANCE.main;// MODIFY INSTANCE MAIN SETTINGS.
+        ParticleSystem.EmissionModule parryShieldINSTANCE_EMISSION = parryShield_INSTANCE.emission; //MODIFY INSTANCE EMISSION MODULE.
+        ParticleSystem.ShapeModule parryShieldINSTANCE_SHAPE = parryShield_INSTANCE.shape;// MODIFY INSTANCE SHAPE MODULE.
+        ParticleSystem.VelocityOverLifetimeModule parryShieldINSTANCE_VELOCITYOVERLIFE = parryShield_INSTANCE.velocityOverLifetime; // MODIFY INSTANCE VELOCITY OVER TIME;
+        ParticleSystem.SizeOverLifetimeModule parryShieldINSTANCE_SIZE = parryShield_INSTANCE.sizeOverLifetime;
+        ParticleSystem.CollisionModule parryShieldINSTANCE_COLLISION = parryShield_INSTANCE.collision;
+        //MODIFICATIONS HERE
+        parryShieldINSTANCE_MAIN.duration = 0.2f;
+        parryShieldINSTANCE_COLLISION.enabled = true;
+        parryShieldINSTANCE_SIZE.enabled = true;
+        parryShieldINSTANCE_EMISSION.rateOverTime = 500;
+
+
+
+        parryShieldINSTANCE_MAIN.startColor = Color.aliceBlue;
+        parryShieldINSTANCE_MAIN.gravityModifier = 1f;
+
+
+        AnimationCurve curve = new AnimationCurve();
+
+        curve.AddKey(0f, 2.5f);   // Large when spawned
+        curve.AddKey(0.2f, 1.5f);   // Shrink quickly
+        curve.AddKey(0.5f, 0.0f);   // Fade to nothing
+
+        parryShieldINSTANCE_SIZE.size = new ParticleSystem.MinMaxCurve(1f, curve);
+
+        //END OF MODIFICATIONS
+
+        parryShield_INSTANCE.Play();
+        
+        
     }
     public void startAttack(InputAction.CallbackContext context)
     {

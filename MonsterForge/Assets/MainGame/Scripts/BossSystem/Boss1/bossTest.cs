@@ -10,10 +10,6 @@ public class bossTest : BossAI
         
 
     }
-    public void Start()
-    {
-        
-    }
 
     public override void Attack() // use this in animationEvent.
     {

@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     
     [SerializeField] LayerMask LayerGround;
     
-    public bool flipped = false;
+    
     [Header("Jump settings")]
     public float jumpForce = 100;
     [SerializeField] 
@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
     Rigidbody2D rb;
     BoxCollider2D boxCollider;
     Animator animator;
-    bool isFacingRight = true;
+    public bool isFacingRight = true;
     
     
     private void Awake()
@@ -75,7 +75,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 currentScale = transform.localScale;
         currentScale.x *= -1;
         transform.localScale = currentScale;
-        flipped = !flipped;
+       
     }
 
     void Update()

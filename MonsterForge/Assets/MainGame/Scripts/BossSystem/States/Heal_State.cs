@@ -6,7 +6,7 @@ public class Heal_State : Boss_State
 
     public override void EnterState()
     {
-        timer = 2f;
+        
         Debug.LogWarning("HEALING!");
         
         //canMove = false
@@ -20,12 +20,5 @@ public class Heal_State : Boss_State
         //canMove = true
     }
 
-    public override void UpdateState()
-    {
-        
-        if (TimerFinished())
-        {
-            bossAI.changeState(new Defend_State(bossAI));
-        }
-    }
+    
 }

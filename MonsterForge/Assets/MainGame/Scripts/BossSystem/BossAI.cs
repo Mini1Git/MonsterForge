@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Unity.Jobs;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Timeline;
 using UnityEngine.XR;
@@ -284,7 +285,7 @@ FSM controls the flow of combat.
 public abstract class BossAI : MonoBehaviour
 {
     public string bossName;
-    [HideInInspector]
+    
     public GameObject player;
     [HideInInspector]
     public Animator animator;
@@ -299,6 +300,7 @@ public abstract class BossAI : MonoBehaviour
     public float maxDistanceToPlayer = 3;
     public Vector2 attackPos;
     public bool facingRight_Bool = false;
+    
 
     protected SpriteRenderer spriteRenderer;
     protected Boss_State currentState; // protected means only children and this class can use.
@@ -308,9 +310,13 @@ public abstract class BossAI : MonoBehaviour
     Material flashMat;
 
     
-
+    public virtual void Start()
+    {
+        player = GameManager.Instance.player;
+    }
     public virtual void Awake()
     {
+        
         health = GetComponent<Health_Component>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -388,7 +394,7 @@ public abstract class BossAI : MonoBehaviour
                 StopCoroutine(hitFlashRoutine);
             }
             
-            hitFlashRoutine = StartCoroutine(hitFlash());
+            hitFlashRoutine = StartCoroutine(hitFlashCoroutine(0.1f));
             
         }
         else
@@ -397,11 +403,15 @@ public abstract class BossAI : MonoBehaviour
             return;
         }
     }
-    public IEnumerator hitFlash()
+    public void hitFlash(float time)
+    {
+        StartCoroutine(hitFlashCoroutine(time));
+    }
+    public IEnumerator hitFlashCoroutine(float time)
     {
         Debug.Log("Flash!");
         flashMat.SetFloat("_hitFlashAmount", 1);
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(time);
         flashMat.SetFloat("_hitFlashAmount", 0);
     }
 
@@ -411,18 +421,11 @@ public abstract class BossAI : MonoBehaviour
 
     }
     
-    public void finishedAttack() // animation event executed
+    public void finishedAnimation() // animation event executed
     {
 
-        
-        if (currentState is Attack_State)
-        {
-            changeState(new Decision_State(this));
-        }
-        else
-        {
-            Debug.LogWarning($"This is not an attack state, {currentState}");
-        }
+
+        changeState(new Decision_State(this));
     }
 
 }

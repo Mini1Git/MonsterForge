@@ -60,9 +60,11 @@ public class UIManager : MonoBehaviour
 
     public void findNewHealthBars()
     {
+        
         healthBars = new List<HealthBar_UI>(
             FindObjectsByType<HealthBar_UI>(FindObjectsSortMode.None)
-
         );
+        Debug.Log($"Found {healthBars.Count} health bars.");
+
     }
 }
