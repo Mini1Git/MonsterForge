@@ -30,10 +30,11 @@ public class NPCDialogue_Controller : MonoBehaviour
         }
         dm.current_Npc = null;
         textGameObj.text = null;
-        if (DialogueStateManager.Instance.npcDialogueState_list[ID].state == DialogueState.inProgress)
+        if (DialogueStateManager.Instance.npcDialogueState_list[ID].state == DialogueState.inProgress && !DialogueStateManager.Instance.npcDialogueState_list[ID].wasInterrupted)
         {
             DialogueStateManager.Instance.npcDialogueState_list[ID].wasInterrupted = true;
-            DialogueStateManager.Instance.npcDialogueState_list[ID].resumeNode = dm.currentNode;
+            DialogueStateManager.Instance.npcDialogueState_list[ID].resumeNode = dm.currentNode; 
+            
         }
 
         dm.Unsubscribe();

@@ -311,7 +311,7 @@ public abstract class BossAI : MonoBehaviour
     private string stateName;
     Coroutine hitFlashRoutine;
     Material flashMat;
-
+    bool spawnedSoulOrb = false;
     
     public virtual void Start()
     {
@@ -339,8 +339,12 @@ public abstract class BossAI : MonoBehaviour
     }
     public void spawnBossSoul() // animation event ig.
     {
-        Instantiate(bossSoul, transform);
-        bossSoul.sceneName = bossSoulScene;
+        if (!spawnedSoulOrb)
+        {
+            spawnedSoulOrb = true;
+            Instantiate(bossSoul, transform);
+            bossSoul.sceneName = bossSoulScene;
+        }
     }
     
     public virtual void changeState(Boss_State state)

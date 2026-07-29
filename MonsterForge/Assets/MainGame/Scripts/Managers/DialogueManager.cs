@@ -75,7 +75,7 @@ public class DialogueManager : MonoBehaviour
     {
         
         
-        if (indexDialogue >= currentNode.dialogueText.Count && currentNode.nextNode != null)
+        if (indexDialogue >= currentNode.dialogueText.Count && currentNode.nextNode != null && !DialogueStateManager.Instance.npcDialogueState_list[current_Npc.ID].wasInterrupted)
         {
 
             Debug.Log("GOING TO NEXT NODE");
@@ -129,11 +129,13 @@ public class DialogueManager : MonoBehaviour
         {
             if (indexDialogue >= currentNode.dialogueText.Count)
             {
+                Debug.Log("DONE INTERRUPTION!");
                 DialogueStateManager.Instance.npcDialogueState_list[current_Npc.ID].wasInterrupted = false;
                 currentNode = DialogueStateManager.Instance.npcDialogueState_list[current_Npc.ID].resumeNode;
                 indexDialogue = 0;
+                return;
             }
-
+            Debug.Log("NOT DONE INTERRUPTION!");
 
         }
     }
