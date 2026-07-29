@@ -3,18 +3,21 @@ using UnityEngine;
 
 public class bossTest : BossAI
 {
-
+    
     public override void Awake()
     {
         base.Awake();
         
 
     }
+    
 
     public override void Attack() // use this in animationEvent.
     {
         
         currentBossAttack?.Execute(facingRight(), this);
+        GetComponentInChildren<hitbox_Spawner>().spawnHitbox();
+        
         
     }
 

@@ -290,7 +290,7 @@ public abstract class BossAI : MonoBehaviour
     [HideInInspector]
     public Animator animator;
     [HideInInspector]
-    public Health_Component health;
+    public bossHealth_Component health;
     public BossAttackSO currentBossAttack;
     public BossAttackSO[] bossAttacks;
     [Header("Boss Behavior Settings")]
@@ -300,8 +300,11 @@ public abstract class BossAI : MonoBehaviour
     public float maxDistanceToPlayer = 3;
     public Vector2 attackPos;
     public bool facingRight_Bool = false;
-    
 
+    [SerializeField]
+    protected soulBoss bossSoul;
+    [Tooltip("Usually it's 'BlackSmith_{Boss Name}'")]
+    public string bossSoulScene;
     protected SpriteRenderer spriteRenderer;
     protected Boss_State currentState; // protected means only children and this class can use.
     [SerializeField]
@@ -313,11 +316,12 @@ public abstract class BossAI : MonoBehaviour
     public virtual void Start()
     {
         player = GameManager.Instance.player;
+        health.onBossDie += death;
     }
     public virtual void Awake()
     {
         
-        health = GetComponent<Health_Component>();
+        health = GetComponent<bossHealth_Component>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         flashMat = spriteRenderer.material;
@@ -328,6 +332,15 @@ public abstract class BossAI : MonoBehaviour
         //if too lazy to add them urself lol.
         //}
 
+    }
+    public void death()
+    {
+        changeState(new Death_State(this));
+    }
+    public void spawnBossSoul() // animation event ig.
+    {
+        Instantiate(bossSoul, transform);
+        bossSoul.sceneName = bossSoulScene;
     }
     
     public virtual void changeState(Boss_State state)
@@ -350,7 +363,15 @@ public abstract class BossAI : MonoBehaviour
 
     public abstract void Attack();
 
-
+    public void disableHitbox() // animation event to disable the hitbox attack.
+    {
+        hitbox_Attack attack = GetComponentInChildren<hitbox_Attack>();
+        if (attack != null)
+        {
+            
+            GameObject.Destroy(attack.gameObject);
+        }
+    }
     public abstract void Defend();
 
     public abstract void Move();
@@ -383,7 +404,7 @@ public abstract class BossAI : MonoBehaviour
     }
 
     public void TakeDamage(float damage) {
-        Health_Component hp = GetComponent<Health_Component>();
+        Health_Component hp = GetComponent<bossHealth_Component>();
         hp.damageEntity(damage); // does the damage.
         UIManager.Instance.updateHealthUI();
         if (!hp.isDead) // if the boss is not dead.
@@ -424,8 +445,15 @@ public abstract class BossAI : MonoBehaviour
     public void finishedAnimation() // animation event executed
     {
 
-
-        changeState(new Decision_State(this));
+        if (health.isDead)
+        {
+            spawnBossSoul();
+        }
+        else
+        {
+            changeState(new Decision_State(this));
+        }
+            
     }
 
 }

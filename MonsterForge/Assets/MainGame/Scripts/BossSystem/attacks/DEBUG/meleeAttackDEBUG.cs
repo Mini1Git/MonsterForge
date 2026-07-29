@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Timeline;
 
 public class meleeAttackDEBUG : MonoBehaviour
 {
@@ -78,7 +79,7 @@ public class meleeAttackDEBUG : MonoBehaviour
         }
         else
         {
-            Gizmos.DrawWireCube((Vector2)boss.transform.position + new Vector2(-bossAttack.attackOffset.x, bossAttack.attackOffset.y), bossAttack.attackBoxSize);
+            Gizmos.DrawWireCube(new Vector2(boss.transform.position.x - bossAttack.attackOffset.x, boss.transform.position.y + bossAttack.attackOffset.y), bossAttack.attackBoxSize);
 
         }
 

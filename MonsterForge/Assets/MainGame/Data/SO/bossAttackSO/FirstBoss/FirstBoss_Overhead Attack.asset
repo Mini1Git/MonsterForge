@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FirstBoss_Overhead Attack
   m_EditorClassIdentifier: Assembly-CSharp::Melee_BossAttackSO
   animationTriggerName: attack2
-  damage: 10
+  damage: 20
   attackOffset: {x: 1.52, y: 0.27}
   attackBoxSize: {x: 1.32, y: 2.14}
-  attackFrame: {fileID: -2765277612119029556, guid: f26ef21c3c91ddf488d3dbe3a856c76e, type: 3}
+  attackFrame: {fileID: -5132007959615318, guid: f26ef21c3c91ddf488d3dbe3a856c76e, type: 3}

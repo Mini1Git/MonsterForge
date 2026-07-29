@@ -5,6 +5,9 @@ using UnityEngine.InputSystem;
 public class PlayerAttack : MonoBehaviour
 {
     [Header("Parrying Settings")]
+    public bool parrySuccess = false;
+    [SerializeField]
+    private float parryEffect_Duration;
     public float parryCooldown;
     public float parryWindow = 1f;
     public bool isParrying = false;
@@ -15,8 +18,7 @@ public class PlayerAttack : MonoBehaviour
     private bool canParry = true;
     public Weapon_SO weaponEquipped;
     public LayerMask layersEnemies;
-    [SerializeField]
-    private float parryEffect_Duration;
+    
     private PlayerMovement movement;
     private PlayerInput playerInput;
     private InputAction attack;
@@ -29,7 +31,7 @@ public class PlayerAttack : MonoBehaviour
     private ParticleSystem parryShield_INSTANCE;//temp var to easily destroy. Instance of parryShield.
     private Animator animator;
     private Coroutine parryCoroutine;
-    private bool parrySuccess = false;
+    
     private void Awake()
     {
         movement = GetComponent<PlayerMovement>();
@@ -103,11 +105,7 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator ParryAttack() 
     {
-        if (parryShield_INSTANCE != null)
-        {
-            Debug.Log("Destroying parry!");
-            GameObject.Destroy(parryShield_INSTANCE.gameObject); // destroy the existing one, if succesful parry
-        }
+        
         var parryShieldShape = parryShield.shape; // shape modifier
         
         //animation here.
@@ -130,17 +128,18 @@ public class PlayerAttack : MonoBehaviour
         yield return new WaitForSeconds(parryWindow);
 
         isParrying = false;//punish
-        if (!parrySuccess)
-        {
-            Debug.LogWarning($"Destroying {parryShield_INSTANCE.name}");
-            GameObject.Destroy(parryShield_INSTANCE.gameObject);
-        }
         
-        yield return new WaitForSeconds(parryCooldown);
 
         
+        yield return new WaitForSeconds(parryCooldown);
+        Debug.LogWarning($"Destroying {parryShield_INSTANCE.name}");
+        GameObject.Destroy(parryShield_INSTANCE.gameObject);
+        
+
         canParry = true;
         parrySuccess = false;
+
+        
     }
     public void parryEffect()
     {
@@ -156,7 +155,7 @@ public class PlayerAttack : MonoBehaviour
         ParticleSystem.SizeOverLifetimeModule parryShieldINSTANCE_SIZE = parryShield_INSTANCE.sizeOverLifetime;
         ParticleSystem.CollisionModule parryShieldINSTANCE_COLLISION = parryShield_INSTANCE.collision;
         //MODIFICATIONS HERE
-        parryShieldINSTANCE_MAIN.duration = 0.2f;
+        parryShieldINSTANCE_MAIN.duration = parryEffect_Duration;
         parryShieldINSTANCE_COLLISION.enabled = true;
         parryShieldINSTANCE_SIZE.enabled = true;
         parryShieldINSTANCE_EMISSION.rateOverTime = 500;
@@ -219,7 +218,7 @@ public class PlayerAttack : MonoBehaviour
 
         foreach (Collider2D hit in hitAttack)
         {
-            Debug.Log(hit.name);
+            
             dummy_component dummy = hit?.GetComponent<dummy_component>();
             BossAI bossAI = hit?.GetComponent<BossAI>();
             if (bossAI != null)
