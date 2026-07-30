@@ -36,6 +36,7 @@ public class hitbox_Attack : MonoBehaviour
         else
         {
             PlayerHealth playerHealth = collision.GetComponentInParent<PlayerHealth>(); // gets collision component
+            
             playerHealth.damageEntity(damageAmount);
         }
         

@@ -22,17 +22,20 @@ public class GameManager : MonoBehaviour
         
         Instance = this;
         DontDestroyOnLoad(this.gameObject);
-        player = GameObject.FindGameObjectWithTag("Player");
+        findAndSetupPlayer();
         boss = GameObject.FindAnyObjectByType<BossAI>();
-        playerHealth = player.GetComponent<PlayerHealth>();
         player_CurrentHealthGM = playerHealth.maxHealth;
     }
-   
+    public void findAndSetupPlayer()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+        playerHealth = player.GetComponent<PlayerHealth>();
+        playerHealth.currentHealth = player_CurrentHealthGM; // keep track of player's hp.
+    }
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        playerHealth.OnHealthUpdate -= GameManager_OnHealthUpdate;
-        playerHealth.OnHealthUpdate += GameManager_OnHealthUpdate;
+        
 
     }
 
@@ -46,19 +49,20 @@ public class GameManager : MonoBehaviour
         Debug.Log("Loaded scene: " + scene.name);
 
         // Call whatever function you want here
+        findAndSetupPlayer();
         setupScene();
         SetupUI();
     }
 
     private void SetupUI()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
         UIManager.Instance.findNewHealthBars();
         UIManager.Instance.updateHealthUI();
     }
 
     private void setupScene()
     {
+        Debug.Log("SETTING UP SCENE!");
         boss = GameObject.FindAnyObjectByType<BossAI>(); // reset boss.
         if (boss)
         {
@@ -66,14 +70,23 @@ public class GameManager : MonoBehaviour
             boss.health.onBossDie -= playerWonFight;// in case theres a sub event alr.
             boss.health.onBossDie += playerWonFight;
         }
-        
+        //setup player health stuff.
+
+        playerHealth.OnHealthUpdate -= GameManager_OnHealthUpdate;
+        playerHealth.OnHealthUpdate += GameManager_OnHealthUpdate;
+
     }
 
     private void GameManager_OnHealthUpdate()
     {
-        player_CurrentHealthGM = playerHealth.currentHealth;
+        Debug.Log("UPDATE HEALTH");
+        setHealth(playerHealth.currentHealth);
     }
 
+    private void setHealth(float health)
+    {
+        player_CurrentHealthGM = health;
+    }
     private void playerWonFight()
     {
         Debug.LogWarning("You won the fight!");

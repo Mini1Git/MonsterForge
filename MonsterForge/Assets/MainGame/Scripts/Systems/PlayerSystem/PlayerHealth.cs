@@ -13,14 +13,13 @@ public class PlayerHealth : Health_Component
             return;
         
         }
-        Debug.Log($"Damaged the player for {damage}");
+        
         base.damageEntity(damage);
 
         
 
 
-        // UI updates
-        UIManager.Instance.updateHealthUI();
+        
 
     }
     public void setPlayerHealth(float health) // sets health when entering level.

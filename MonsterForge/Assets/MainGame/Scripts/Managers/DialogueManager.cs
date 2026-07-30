@@ -22,8 +22,9 @@ public class DialogueManager : MonoBehaviour
             Destroy(gameObject); // Destroy duplicate
             return;
         }
-        DontDestroyOnLoad(this.gameObject);
+        
         Instance = this;
+        DontDestroyOnLoad(this.gameObject);
         playerInput = new PlayerInput();
     }
     private void OnEnable()
@@ -129,13 +130,13 @@ public class DialogueManager : MonoBehaviour
         {
             if (indexDialogue >= currentNode.dialogueText.Count)
             {
-                Debug.Log("DONE INTERRUPTION!");
+                
                 DialogueStateManager.Instance.npcDialogueState_list[current_Npc.ID].wasInterrupted = false;
                 currentNode = DialogueStateManager.Instance.npcDialogueState_list[current_Npc.ID].resumeNode;
                 indexDialogue = 0;
                 return;
             }
-            Debug.Log("NOT DONE INTERRUPTION!");
+            
 
         }
     }

@@ -593,6 +593,10 @@ PrefabInstance:
       propertyPath: entity
       value: 
       objectReference: {fileID: 565461137}
+    - target: {fileID: 971581940083748099, guid: 241a2f8e860896746bdb6f775c8b51b2, type: 3}
+      propertyPath: isPlayer
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1064267866377748868, guid: 241a2f8e860896746bdb6f775c8b51b2, type: 3}
       propertyPath: m_Name
       value: UIManager

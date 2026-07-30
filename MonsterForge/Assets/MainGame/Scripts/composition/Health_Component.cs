@@ -3,7 +3,6 @@ using UnityEngine;
 
 public abstract class Health_Component : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     public float maxHealth = 100;
     [SerializeField] protected float _currentHealth;
     [SerializeField] private bool _dead;
@@ -13,7 +12,11 @@ public abstract class Health_Component : MonoBehaviour
     {
 
         get => _currentHealth;
-        set { _currentHealth = value;  }
+        set { 
+            _currentHealth = value;
+            OnHealthUpdate?.Invoke();
+           
+        }
     }
     public bool isDead
     {
@@ -24,33 +27,31 @@ public abstract class Health_Component : MonoBehaviour
     
     public void Awake()
     {
-        _currentHealth = maxHealth;
+        currentHealth = maxHealth;
     }
 
 
    public virtual void healEntity(float healAmount)
     {
-        _currentHealth += healAmount;
-        if (_currentHealth > maxHealth)
+        currentHealth += healAmount;
+        if (currentHealth > maxHealth)
         {
-            _currentHealth = maxHealth;
+            currentHealth = maxHealth;
         }
-        updateHealth();
+        UIManager.Instance.updateHealthUI();
     }
     public virtual void damageEntity(float damage)
     {
-        _currentHealth -= damage;
-        if (_currentHealth <= 0)
+        
+        currentHealth = Mathf.Max(currentHealth - damage, 0);
+        Debug.Log($" Damaged {this.gameObject} for {damage}, current HP: {currentHealth}");
+        if (currentHealth <= 0)
         {
             die();
         }
-        updateHealth();
-    }
-    private void updateHealth()
-    {
-        OnHealthUpdate?.Invoke();
         UIManager.Instance.updateHealthUI();
     }
+    
     public virtual void die()
     {
         
