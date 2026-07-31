@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueNode
   character: Burow
   dialogueText:
-  - Alright, done testing ur weapon?
+  - Alright, happy with your selection? Now...
   - 'Give me a sec... '
-  - I'll open the door.
+  - I'll open the portal.
   nextNode: {fileID: 11400000, guid: f7ea58f428df9864fa3762986c178214, type: 2}
   onComplete:
-  - {fileID: 11400000, guid: 3876afabacb82034eb49bfbb31245732, type: 2}
+  - {fileID: 11400000, guid: 4ef531b838877cd4daf0b7ff032f550c, type: 2}

@@ -1021,7 +1021,7 @@ GameObject:
   - component: {fileID: 1206149699}
   - component: {fileID: 1206149701}
   m_Layer: 0
-  m_Name: Door
+  m_Name: Portal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1918,6 +1918,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2996208471512970085, guid: 41d3b09989ce755498896f061bf1dc8c, type: 3}
       propertyPath: door
+      value: 
+      objectReference: {fileID: 1206149701}
+    - target: {fileID: 2996208471512970085, guid: 41d3b09989ce755498896f061bf1dc8c, type: 3}
+      propertyPath: portal
       value: 
       objectReference: {fileID: 1206149701}
     - target: {fileID: 3694407513787842691, guid: 41d3b09989ce755498896f061bf1dc8c, type: 3}

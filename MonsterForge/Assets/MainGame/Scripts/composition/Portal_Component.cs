@@ -3,13 +3,13 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 
-public class Door_Component : MonoBehaviour
+public class Portal_Component : MonoBehaviour
 {
     PlayerInput input;
     InputAction interact;
     public GameObject textPrompt;
     public string sceneName;
-    bool isUnlocked = true;
+    bool isUnlocked = false;
     
     private void Awake()
     {
@@ -26,14 +26,14 @@ public class Door_Component : MonoBehaviour
     }
     public void Open()
     {
-        Debug.Log("Door has been unlocked.");
+        Debug.Log("Portal has been unlocked.");
         isUnlocked = true;
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player")){
             textPrompt.SetActive(true);
-            interact.performed += Enter;
+            interact.performed += Enter; // if click "e"
         }
         
     }
@@ -42,6 +42,7 @@ public class Door_Component : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             interact.performed -= Enter;
+
         }
     }
 
