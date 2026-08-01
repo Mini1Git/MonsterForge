@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -28,8 +29,8 @@ public class PlayerMovement : MonoBehaviour
     BoxCollider2D boxCollider;
     Animator animator;
     public bool isFacingRight = true;
-    
-    
+    bool knockBack = false;
+    Coroutine kb = null;
     private void Awake()
     {
         
@@ -113,7 +114,11 @@ public class PlayerMovement : MonoBehaviour
     
     private void FixedUpdate()
     {
-        rb.linearVelocityX = moveDir * speed;
+        if (!knockBack)
+        {
+            rb.linearVelocityX = moveDir * speed;
+        }
+        
         
         if (rb.linearVelocityY < 0) // if falling
         {
@@ -137,7 +142,29 @@ public class PlayerMovement : MonoBehaviour
         }
         
     }
-
+    public void Knockback(float force)
+    {
+        if (kb == null)
+        {
+            if (isFacingRight)
+            {
+                kb = StartCoroutine(KnockbackCoroutine(-force));
+            }
+            else
+            {
+                kb = StartCoroutine(KnockbackCoroutine(force));
+            }
+        }
+    }
+    private IEnumerator KnockbackCoroutine(float amount)
+    {
+        knockBack = true;
+        
+        rb.linearVelocityX = amount;
+        yield return new WaitForSeconds(1f);
+        knockBack = false;
+        kb = null;
+    }
     public bool IsGrounded()
     {
         

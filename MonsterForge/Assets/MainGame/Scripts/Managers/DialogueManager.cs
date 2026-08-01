@@ -13,7 +13,7 @@ public class DialogueManager : MonoBehaviour
     PlayerInput playerInput;
     public InputAction interact;
     bool doneOnCompleteEvents = false;
-
+    public bool newScene = true;
     private void Awake()
     {
         
@@ -40,6 +40,7 @@ public class DialogueManager : MonoBehaviour
     }
     public void setCurrentNPC(NPCDialogue_Controller npc)
     {
+        player = GameManager.Instance.player;
         current_Npc = npc;
 
         if (string.IsNullOrEmpty(npc.ID))
@@ -51,6 +52,8 @@ public class DialogueManager : MonoBehaviour
         if (!DialogueStateManager.Instance.npcDialogueState_list.ContainsKey(npc.ID))
         {
             Debug.Log("New NPC encountered!");
+            //this is when it's a new scene while encountering same npc.
+            newScene = false;
             currentNode = npc.startingNode;
             DialogueStateManager.Instance.npcDialogueState_list.Add(npc.ID, npc.NPC_State);
             
@@ -59,7 +62,14 @@ public class DialogueManager : MonoBehaviour
         {
             
             Debug.Log($"Already encountered {npc.ID}"); 
-            if (npc.NPC_State.wasInterrupted)
+            if (!DialogueStateManager.Instance.npcDialogueState_list[npc.ID].wasInterrupted && newScene)
+            {
+                //this is when it's a new scene while encountering same npc.
+                newScene = false;
+                currentNode = npc.startingNode;
+                indexDialogue = 0; // reset everything dialogue related.
+            }
+            if (DialogueStateManager.Instance.npcDialogueState_list[npc.ID].wasInterrupted)
             {
                 
                 currentNode = npc.interruptDialogueNode;
@@ -149,6 +159,9 @@ public class DialogueManager : MonoBehaviour
         if (indexDialogue >= currentNode.dialogueText.Count)
         {
             Debug.Log("Doing on Complete events!");
+
+            doneOnCompleteEvents = true;
+
             //executes only one time.
             dialogueContext dialogueContext = new dialogueContext(player, current_Npc); // gets context as to who is talking to who.
 

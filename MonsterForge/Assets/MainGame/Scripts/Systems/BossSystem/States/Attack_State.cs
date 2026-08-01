@@ -29,7 +29,7 @@ public class Attack_State : Boss_State
     public override void ExitState()
     {
 
-        bossAI.currentBossAttack = null;
+        
         
     }
 }

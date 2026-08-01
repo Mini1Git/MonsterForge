@@ -3,11 +3,12 @@ using UnityEngine;
 
 public class bossTest : BossAI
 {
-    
+    Rigidbody2D rb;
+    public float parriedKnockback = 5;
     public override void Awake()
     {
         base.Awake();
-        
+        rb = GetComponent<Rigidbody2D>();
 
     }
     
@@ -38,9 +39,18 @@ public class bossTest : BossAI
 
     }
 
-    
-
-
-
-
+    public override void Parried()
+    {
+        Vector3 direction = new Vector3((player.transform.position.x - transform.position.x), 0, 0).normalized;
+        //moves horizontally to close distance to player.
+        if (!facingRight())
+        {
+            rb.linearVelocityX = parriedKnockback;
+        }
+        else
+        {
+            rb.linearVelocityX = -parriedKnockback;
+        }
+        
+    }
 }

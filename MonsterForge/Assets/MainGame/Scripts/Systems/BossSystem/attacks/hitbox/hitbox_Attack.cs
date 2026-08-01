@@ -3,7 +3,7 @@ using UnityEngine;
 public class hitbox_Attack : MonoBehaviour 
 {
 
-    bool hasHit = false;
+    public bool hasHit = false;
     
     public Vector2 attackBoxSize;
 
@@ -17,17 +17,21 @@ public class hitbox_Attack : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        
+        if (!collision.CompareTag("Player"))
+            return;
+
+
+        BossAI boss = GetComponentInParent<BossAI>();
         PlayerAttack playerAttack = collision.GetComponentInParent<PlayerAttack>();
 
         if (hasHit)
-        {
             return;
-        }
+        
         hasHit = true;
-        if (playerAttack.isParrying)
+        //Debug.LogError("HIT");
+        if (playerAttack.parryTiming == PlayerAttack.parry_Timing.Perfect || playerAttack.parryTiming == PlayerAttack.parry_Timing.Late)
         {
-            BossAI boss = GetComponentInParent<BossAI>(); 
+            
             boss.changeState(new Parried_State(boss));
             GameObject.Destroy(gameObject);
             
@@ -35,12 +39,19 @@ public class hitbox_Attack : MonoBehaviour
         }
         else
         {
+            Debug.LogWarning("FAILED TO PARRY!");
+            boss.player.GetComponent<PlayerAttack>().failParry();
             PlayerHealth playerHealth = collision.GetComponentInParent<PlayerHealth>(); // gets collision component
             
             playerHealth.damageEntity(damageAmount);
         }
         
     }
+
+    
+
+
+
     public void setHitboxActive(bool hitboxActive)
     {
         if (hitboxActive)

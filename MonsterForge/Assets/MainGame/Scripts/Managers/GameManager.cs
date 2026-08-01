@@ -63,6 +63,9 @@ public class GameManager : MonoBehaviour
     private void setupScene()
     {
         Debug.Log("SETTING UP SCENE!");
+        DialogueManager.Instance.newScene = true; // reset dialogue manager's npc.
+        
+
         boss = GameObject.FindAnyObjectByType<BossAI>(); // reset boss.
         if (boss)
         {

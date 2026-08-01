@@ -2,7 +2,7 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "Melee_BossAttackSO", menuName = "Boss Attacks/Melee/Melee_BossAttackSO")]
 public class Melee_BossAttackSO : BossAttackSO {
-    public float damage = 10;
+    
     public Vector2 attackOffset;
     public Vector2 attackBoxSize;
     public Sprite attackFrame;

@@ -366,7 +366,7 @@ public abstract class BossAI : MonoBehaviour
     }
 
     public abstract void Attack();
-
+    public abstract void Parried();
     public void disableHitbox() // animation event to disable the hitbox attack.
     {
         hitbox_Attack attack = GetComponentInChildren<hitbox_Attack>();
@@ -434,7 +434,7 @@ public abstract class BossAI : MonoBehaviour
     }
     public IEnumerator hitFlashCoroutine(float time)
     {
-        Debug.Log("Flash!");
+        
         flashMat.SetFloat("_hitFlashAmount", 1);
         yield return new WaitForSeconds(time);
         flashMat.SetFloat("_hitFlashAmount", 0);
