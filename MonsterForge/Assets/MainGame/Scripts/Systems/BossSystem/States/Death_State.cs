@@ -10,7 +10,7 @@ public class Death_State : Boss_State
     {
         Debug.Log("BOSS STATE: Boss died!");
         //death animation
-
+        bossAI.animator.SetTrigger("DEATH");
         bossAI.spawnBossSoul();
 
     }
