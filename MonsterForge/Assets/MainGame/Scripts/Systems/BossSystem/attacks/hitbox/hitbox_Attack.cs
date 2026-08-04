@@ -23,6 +23,7 @@ public class hitbox_Attack : MonoBehaviour
 
         BossAI boss = GetComponentInParent<BossAI>();
         PlayerAttack playerAttack = collision.GetComponentInParent<PlayerAttack>();
+        PlayerHealth playerHealth = collision.GetComponentInParent<PlayerHealth>(); // gets collision component
 
         if (hasHit)
             return;
@@ -39,11 +40,10 @@ public class hitbox_Attack : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning("FAILED TO PARRY!");
-            boss.player.GetComponent<PlayerAttack>().failParry();
-            PlayerHealth playerHealth = collision.GetComponentInParent<PlayerHealth>(); // gets collision component
             
-            playerHealth.damageEntity(damageAmount);
+            playerHealth.playerGotHit(damageAmount); // can't parry during.
+            
+
         }
         
     }

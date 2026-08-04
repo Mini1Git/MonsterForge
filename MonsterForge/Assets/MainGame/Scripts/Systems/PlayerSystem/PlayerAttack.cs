@@ -13,6 +13,7 @@ public class PlayerAttack : MonoBehaviour
     }
     public parry_Timing parryTiming;
     [Header("Parrying Settings")]
+    public bool canParry = true;
     [SerializeField]
     private float parryEffect_Duration;
     public float parryCooldown;
@@ -24,11 +25,10 @@ public class PlayerAttack : MonoBehaviour
     [Header("Attack Settings")]
     public float attackDamage = 0;
     public Transform attackRef;
-    private Vector2 attackSize = Vector2.one;
-    private bool canParry = true;
     public Weapon_SO weaponEquipped;
     public LayerMask layersEnemies;
-    
+
+    private Vector2 attackSize = Vector2.one;
     private PlayerMovement movement;
     private PlayerInput playerInput;
     private InputAction attack;
@@ -38,9 +38,9 @@ public class PlayerAttack : MonoBehaviour
     [SerializeField]
     private ParticleSystem parryShield; // this is the actual prefab
     private ParticleSystem.MainModule mainParryShield; // this is main module so we can modify...
-    private ParticleSystem parryShield_INSTANCE;//temp var to easily destroy. Instance of parryShield.
+    public ParticleSystem parryShield_INSTANCE;//temp var to easily destroy. Instance of parryShield.
     private Animator animator;
-    
+    private Coroutine stunnedCoroutine;
     private void Awake()
     {
         movement = GetComponent<PlayerMovement>();
@@ -238,29 +238,8 @@ public class PlayerAttack : MonoBehaviour
 
 
     }
-    public void failParry()
-    {
-        if (parryShield_INSTANCE == null)
-        {
-            return;
-        }
-        parryShield_INSTANCE.Stop(); //so even tho it stopped, it's still in the scene.
-        parryShield_INSTANCE.Clear(); // clears the active particles
-
-        //particle system attributes.
-        ParticleSystem.MainModule parryShieldINSTANCE_MAIN = parryShield_INSTANCE.main;// MODIFY INSTANCE MAIN SETTINGS.
-        ParticleSystem.EmissionModule parryShieldINSTANCE_EMISSION = parryShield_INSTANCE.emission; //MODIFY INSTANCE EMISSION MODULE.
-        ParticleSystem.ShapeModule parryShieldINSTANCE_SHAPE = parryShield_INSTANCE.shape;// MODIFY INSTANCE SHAPE MODULE.
-        ParticleSystem.VelocityOverLifetimeModule parryShieldINSTANCE_VELOCITYOVERLIFE = parryShield_INSTANCE.velocityOverLifetime; // MODIFY INSTANCE VELOCITY OVER TIME;
-        ParticleSystem.SizeOverLifetimeModule parryShieldINSTANCE_SIZE = parryShield_INSTANCE.sizeOverLifetime;
-        ParticleSystem.CollisionModule parryShieldINSTANCE_COLLISION = parryShield_INSTANCE.collision;
-
-        parryShieldINSTANCE_MAIN.startColor = Color.rebeccaPurple;
-
-
-
-        parryShield_INSTANCE.Play();
-    }
+    
+    
     public void startAttack(InputAction.CallbackContext context)
     {
         if (armed)

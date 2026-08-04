@@ -982,7 +982,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 113731b596420c047815e4e6ab1bf30f, type: 2}
   - {fileID: 11400000, guid: 241f066b91eda4e4093bf00b6b476114, type: 2}
   moveSpeed: 5
-  healthTolerance: 40
+  healthTolerance: 50
   healed: 0
   maxDistanceToPlayer: 1.5
   attackPos: {x: 0, y: 0}
@@ -1679,29 +1679,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 105393238687538564, guid: f7fb0bfdb5d3d3844b7dc3030e7e4851, type: 3}
-      propertyPath: isParrying
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 105393238687538564, guid: f7fb0bfdb5d3d3844b7dc3030e7e4851, type: 3}
-      propertyPath: parryEffect_Duration
-      value: 0.1
-      objectReference: {fileID: 0}
     - target: {fileID: 147260988760758770, guid: f7fb0bfdb5d3d3844b7dc3030e7e4851, type: 3}
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 147260988760758770, guid: f7fb0bfdb5d3d3844b7dc3030e7e4851, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2417750670757584019, guid: f7fb0bfdb5d3d3844b7dc3030e7e4851, type: 3}
-      propertyPath: m_Layer
-      value: 7
-      objectReference: {fileID: 0}
+    - target: {fileID: 2952872901226671782, guid: f7fb0bfdb5d3d3844b7dc3030e7e4851, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: -876546973899608171, guid: e3121a3c6b91c464ca38720997deddd2, type: 3}
     - target: {fileID: 6065303597630009451, guid: f7fb0bfdb5d3d3844b7dc3030e7e4851, type: 3}
       propertyPath: godMode
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

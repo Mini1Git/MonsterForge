@@ -25,7 +25,7 @@ public abstract class Health_Component : MonoBehaviour
 
 
     
-    public void Awake()
+    protected virtual void Awake()
     {
         currentHealth = maxHealth;
     }

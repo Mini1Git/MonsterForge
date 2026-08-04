@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 9074022714612194907}
   - component: {fileID: 105393238687538564}
   - component: {fileID: 6065303597630009451}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -225,17 +225,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 216ec4a1e858eb34d820cccbc5bd7939, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
+  parryTiming: 0
+  canParry: 1
+  parryEffect_Duration: 0.1
   parryCooldown: 0.5
   parryWindow: 0.5
-  isParrying: 1
+  perfect_parryWindowMult: 0.25
+  late_parryWindowMult: 0.75
+  isParrying: 0
+  parrySuccess: 0
   attackDamage: 0
   attackRef: {fileID: 1088820025064097568}
   weaponEquipped: {fileID: 11400000, guid: 2d990b02f0a5e4a44980e4e521a59c06, type: 2}
   layersEnemies:
     serializedVersion: 2
     m_Bits: 64
-  parryEffect_Duration: 0
   parryShield: {fileID: 4023503644610035767, guid: 1c583048ddcc8ae488cfe4cabe93568e, type: 3}
+  parryShield_INSTANCE: {fileID: 0}
 --- !u!114 &6065303597630009451
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,7 +267,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1088820025064097568}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: attackRef
   m_TagString: Untagged
   m_Icon: {fileID: 0}

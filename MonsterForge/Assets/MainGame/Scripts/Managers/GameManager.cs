@@ -26,6 +26,10 @@ public class GameManager : MonoBehaviour
         boss = GameObject.FindAnyObjectByType<BossAI>();
         player_CurrentHealthGM = playerHealth.maxHealth;
     }
+    private void Start()
+    {
+       
+    }
     public void findAndSetupPlayer()
     {
         player = GameObject.FindGameObjectWithTag("Player");
