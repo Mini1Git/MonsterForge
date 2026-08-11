@@ -17,6 +17,7 @@ TagManager:
   - Fill
   - SHIELD
   - Player_Icon
+  - playerDeathUI
   layers:
   - Default
   - TransparentFX

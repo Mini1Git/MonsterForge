@@ -317,6 +317,7 @@ public abstract class BossAI : MonoBehaviour
     {
         player = GameManager.Instance.player;
         health.onBossDie += death;
+        player.GetComponent<PlayerHealth>().playerDeath += playerDied;
     }
     public virtual void Awake()
     {
@@ -332,6 +333,10 @@ public abstract class BossAI : MonoBehaviour
         //if too lazy to add them urself lol.
         //}
 
+    }
+    public void playerDied()
+    {
+        changeState(new PlayerDeath_State(this));
     }
     public void death()
     {
@@ -353,7 +358,7 @@ public abstract class BossAI : MonoBehaviour
         currentState?.ExitState(); 
         currentState = state;
 
-        stateName = currentState.GetType().Name; // get the name of the state. 
+        stateName = currentState.GetType().Name; // get the name of the state. This is for debugging purposes.
 
         currentState.EnterState();
     }
@@ -406,12 +411,12 @@ public abstract class BossAI : MonoBehaviour
             spriteRenderer.flipX = false;
         }
     }
-
+    
     public void TakeDamage(float damage) {
-        Health_Component hp = GetComponent<bossHealth_Component>();
-        hp.damageEntity(damage); // does the damage.
+
+        health.damageEntity(damage); // does the damage.
         UIManager.Instance.updateHealthUI();
-        if (!hp.isDead) // if the boss is not dead.
+        if (!health.isDead) // if the boss is not dead.
         {
             
             if (hitFlashRoutine != null) // if theres already an active hitFlash, stop the current.
@@ -453,8 +458,13 @@ public abstract class BossAI : MonoBehaviour
         {
             spawnBossSoul();
         }
+        else if (currentState is PlayerDeath_State)
+        {
+            Debug.Log("DO NOTHINGGGG");
+        }
         else
         {
+            
             changeState(new Decision_State(this));
         }
             

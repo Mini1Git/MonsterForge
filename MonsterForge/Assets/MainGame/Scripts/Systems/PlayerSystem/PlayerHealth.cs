@@ -10,6 +10,7 @@ public class PlayerHealth : Health_Component
     public bool invulnerable; // basically this is i frames.
     PlayerAttack pa;
     Material playerHit_Mat;
+    public event Action playerDeath;
     
     protected override void Awake()
     {
@@ -28,9 +29,14 @@ public class PlayerHealth : Health_Component
             return; 
         }
         base.damageEntity(damage);
+    }
+    public override void die()
+    {
+        base.die();
+        playerDeath?.Invoke();
+        gameObject.SetActive(false);
 
     }
-
     public void playerGotHit(float damage) // gives 0.5f time of i frames.
     {
         damageEntity(damage);
@@ -39,7 +45,7 @@ public class PlayerHealth : Health_Component
     }
     public void playerStunned()
     {
-        if (stunnedCoroutine == null)
+        if (stunnedCoroutine == null && gameObject.activeSelf)
         {
             stunnedCoroutine = StartCoroutine(stunned());
         }

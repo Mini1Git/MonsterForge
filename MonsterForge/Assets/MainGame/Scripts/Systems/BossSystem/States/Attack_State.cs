@@ -30,7 +30,6 @@ public class Attack_State : Boss_State
     {
 
         
-        
     }
 }
 

@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour
     public GameObject player;
     public Weapon_SO currentWeapon;
     public float player_CurrentHealthGM;
+
     
     [SerializeField]
     private BossAI boss;
@@ -28,8 +29,16 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-       
+        playerHealth.playerDeath += PlayerHealth_playerDeath;
     }
+
+    private void PlayerHealth_playerDeath()
+    {
+        UIManager.Instance.playerDiedUI();
+        //load back to blacksmith.
+
+    }
+
     public void findAndSetupPlayer()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -52,14 +61,25 @@ public class GameManager : MonoBehaviour
     {
         Debug.Log("Loaded scene: " + scene.name);
 
+
         // Call whatever function you want here
         findAndSetupPlayer();
         setupScene();
         SetupUI();
     }
 
+    public void respawn()
+    {
+        Debug.Log("RESPAWN CLICK!");
+    }
     private void SetupUI()
     {
+        if (boss)
+        {
+            UIManager.Instance.setupDeath(); // setup death screen if a boss is present.
+        }
+        
+
         UIManager.Instance.findNewHealthBars();
         UIManager.Instance.updateHealthUI();
     }

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FirstBoss_Jab Attack
   m_EditorClassIdentifier: Assembly-CSharp::Melee_BossAttackSO
   animationTriggerName: attack1
-  damage: 10
+  damage: 15
   attackOffset: {x: 1.32, y: -0.11}
   attackBoxSize: {x: 1.39, y: 0.93}
   attackFrame: {fileID: 3269721144682702252, guid: afb2df7a1e624f84e8f2ef51a21fbead, type: 3}

@@ -45,11 +45,13 @@ public abstract class Health_Component : MonoBehaviour
         
         currentHealth = Mathf.Max(currentHealth - damage, 0);
         Debug.Log($" Damaged {this.gameObject} for {damage}, current HP: {currentHealth}");
+        UIManager.Instance.updateHealthUI();
         if (currentHealth <= 0)
         {
+            UIManager.Instance.hideHealthUI(true);
             die();
         }
-        UIManager.Instance.updateHealthUI();
+        
     }
     
     public virtual void die()
@@ -57,6 +59,7 @@ public abstract class Health_Component : MonoBehaviour
         
         _dead = true;
         Debug.Log(gameObject.name + " Has died!");
+        
         
     }
     
