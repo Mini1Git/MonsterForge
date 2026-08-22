@@ -14,10 +14,10 @@ public class UIManager : MonoBehaviour
     [Header("HUD")]
     public List<HealthBar_UI> healthBars;
 
-    public CanvasGroup deathCanvas = null;
     public bool startFadeIn = false;
     public float fadeInDelay;
     public float fadeSpeed = 1;
+    public Transform oldTransform;
     public void Awake()
     {
 
@@ -28,10 +28,11 @@ public class UIManager : MonoBehaviour
         }
         DontDestroyOnLoad(this.gameObject);
         Instance = this;
-
+        playerDeath_UI = GameObject.FindGameObjectWithTag("playerDeathUI");
     }
     public void Start()
     {
+       
         if (healthBars.Count == 0)
         {
             Debug.LogWarning("There are no healthbars! Add one to the list in UI Manager!");
@@ -39,16 +40,16 @@ public class UIManager : MonoBehaviour
     }
 
     public void playerDiedUI() {
-        
-       
 
 
 
+        Debug.LogWarning("Player had died (from UIMANAGER");
+        playerDeath_UI.transform.position = new Vector2(oldTransform.position.x, oldTransform.position.y);
         playerDeath_UI.SetActive(true);
         playerDeath_UI.GetComponent<CanvasGroup>().interactable = true; // so u can click buttons.
         playerDeath_UI.GetComponent<CanvasGroup>().alpha = 0f;
-        deathCanvas = playerDeath_UI.GetComponent<CanvasGroup>();
-        //need to figure out how to fade this in and out.
+        
+        
         startFadeIn = true;
         
 
@@ -63,20 +64,25 @@ public class UIManager : MonoBehaviour
     }
     public IEnumerator fadein()
     {
+        
         while (playerDeath_UI.GetComponent<CanvasGroup>().alpha < 1f)
         {
             yield return new WaitForSeconds(fadeInDelay);
             playerDeath_UI.GetComponent<CanvasGroup>().alpha += fadeSpeed * Time.deltaTime;
         }
-        playerDeath_UI.GetComponent <CanvasGroup>().alpha = 1f;
+        playerDeath_UI.GetComponent<CanvasGroup>().alpha = 1f;
         
 
     }
     public void setupDeath()
     {
-        playerDeath_UI = GameObject.FindGameObjectWithTag("playerDeathUI");
+        
+        if (playerDeath_UI == null)
+        {
+            Debug.Log("Cannot find player death UI");
+        }
         playerDeath_UI.GetComponent<CanvasGroup>().interactable = false;
-        playerDeath_UI.SetActive(false);
+        playerDeath_UI.transform.position = new Vector2(10000,oldTransform.position.y); // move out of the way lol.
     }
     public void hideHealthUI(bool hide) // tho this hides all HEALTHBARS. Good for cutscenes.
     {

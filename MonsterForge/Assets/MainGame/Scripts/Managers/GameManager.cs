@@ -29,11 +29,12 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-        playerHealth.playerDeath += PlayerHealth_playerDeath;
+       
     }
 
     private void PlayerHealth_playerDeath()
     {
+        Debug.LogWarning("Player died GAME MANAGER");
         UIManager.Instance.playerDiedUI();
         //load back to blacksmith.
 
@@ -59,13 +60,18 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("Loaded scene: " + scene.name);
-
-
+        
+        
         // Call whatever function you want here
         findAndSetupPlayer();
         setupScene();
         SetupUI();
+        Debug.Log("Loaded scene: " + scene.name);
+
+
+        
+        playerHealth.playerDeath += PlayerHealth_playerDeath;
+        
     }
 
     public void respawn()
@@ -74,10 +80,9 @@ public class GameManager : MonoBehaviour
     }
     private void SetupUI()
     {
-        if (boss)
-        {
-            UIManager.Instance.setupDeath(); // setup death screen if a boss is present.
-        }
+        
+        UIManager.Instance.setupDeath(); // setup death screen if a boss is present.
+        
         
 
         UIManager.Instance.findNewHealthBars();

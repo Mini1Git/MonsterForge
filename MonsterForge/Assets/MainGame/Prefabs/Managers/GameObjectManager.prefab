@@ -45,4 +45,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameObjectManager
   weaponContainer: {fileID: 0}
-  currentWeapon: {fileID: 0}
+  arrowSpeed: 10
+  arrowDamage: 10

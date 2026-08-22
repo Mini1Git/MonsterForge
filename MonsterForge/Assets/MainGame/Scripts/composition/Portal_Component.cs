@@ -9,6 +9,7 @@ public class Portal_Component : MonoBehaviour
     InputAction interact;
     public GameObject textPrompt;
     public string sceneName;
+    public Animator animator;
     bool isUnlocked = false;
     
     private void Awake()
@@ -32,6 +33,10 @@ public class Portal_Component : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player")){
+            if (isUnlocked)
+            {
+                animator.SetBool("playerNear", true);
+            }
             textPrompt.SetActive(true);
             interact.performed += Enter; // if click "e"
         }
@@ -39,8 +44,13 @@ public class Portal_Component : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
+
         if (collision.CompareTag("Player"))
         {
+            if (isUnlocked)
+            {
+                animator.SetBool("playerNear", false);
+            }
             interact.performed -= Enter;
 
         }
@@ -50,6 +60,7 @@ public class Portal_Component : MonoBehaviour
     {
         if (isUnlocked)
         {
+
             Debug.Log($"Entering {sceneName}");
             SceneManager.LoadScene(sceneName);
             
