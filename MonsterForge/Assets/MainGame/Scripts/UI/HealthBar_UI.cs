@@ -35,10 +35,7 @@ public class HealthBar_UI : MonoBehaviour
 
         if (isPlayer)
         {
-            if (GameObject.FindGameObjectWithTag("Player") == null)
-            {
-                return;
-            }
+            
             //setup player
             entity = GameObject.FindGameObjectWithTag("Player"); // because the player doesn't persists.
 
@@ -51,7 +48,11 @@ public class HealthBar_UI : MonoBehaviour
                 hpBar.value = 0;
                 hpBar.fillRect.gameObject.SetActive(false);
             }
-            return;
+            else
+            {
+                hpBar.fillRect.gameObject.SetActive(true);
+            }
+                return;
         }
         entity_health = entity.GetComponent<Health_Component>().currentHealth;
         hpBar.value = entity_health/entity.GetComponent<Health_Component>().maxHealth;

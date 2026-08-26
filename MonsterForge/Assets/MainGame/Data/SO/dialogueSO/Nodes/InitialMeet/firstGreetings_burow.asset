@@ -21,3 +21,4 @@ MonoBehaviour:
   nextNode: {fileID: 11400000, guid: dbb321f9e30b0af48a0a4dda59e2bb6f, type: 2}
   onComplete:
   - {fileID: 11400000, guid: 4045125763abeef4585818d3ddaef4c9, type: 2}
+  - {fileID: 11400000, guid: 2fbb76e97495e3f468f296a9c2e8dad6, type: 2}

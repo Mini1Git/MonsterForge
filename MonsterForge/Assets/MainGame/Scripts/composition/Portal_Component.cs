@@ -20,6 +20,7 @@ public class Portal_Component : MonoBehaviour
     {
         interact = input.Player.Interact;
         interact.Enable();
+        textPrompt.SetActive(false);
     }
     private void OnDisable()
     {
@@ -35,9 +36,10 @@ public class Portal_Component : MonoBehaviour
         if (collision.CompareTag("Player")){
             if (isUnlocked)
             {
+                textPrompt.SetActive(true);
                 animator.SetBool("playerNear", true);
             }
-            textPrompt.SetActive(true);
+            
             interact.performed += Enter; // if click "e"
         }
         
@@ -51,6 +53,7 @@ public class Portal_Component : MonoBehaviour
             {
                 animator.SetBool("playerNear", false);
             }
+            textPrompt.SetActive(false);
             interact.performed -= Enter;
 
         }

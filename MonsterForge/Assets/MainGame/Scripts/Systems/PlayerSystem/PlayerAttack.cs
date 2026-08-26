@@ -41,6 +41,7 @@ public class PlayerAttack : MonoBehaviour
     public ParticleSystem parryShield_INSTANCE;//temp var to easily destroy. Instance of parryShield.
     private Animator animator;
     private Coroutine stunnedCoroutine;
+    
     private void Awake()
     {
         movement = GetComponent<PlayerMovement>();
@@ -114,7 +115,9 @@ public class PlayerAttack : MonoBehaviour
 
     IEnumerator ParryAttack() 
     {
-        
+        movement.freezeMovement();
+        //play parry animation here
+
         var parryShieldShape = parryShield.shape; // shape modifier
         
         //animation here.
@@ -154,6 +157,7 @@ public class PlayerAttack : MonoBehaviour
         }
 
         parryTiming = parry_Timing.None;
+        movement.unfreezeMovement();
         yield return new WaitForSeconds(parryCooldown); // some cooldown before you can parry again.
         canParry = true;
         parrySuccess = false;

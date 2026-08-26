@@ -3,15 +3,18 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    
     public static GameManager Instance;
     public GameObject player;
     public Weapon_SO currentWeapon;
     public float player_CurrentHealthGM;
+    public int global_deathCounter = 0;
 
-    
+
     [SerializeField]
     private BossAI boss;
     private PlayerHealth playerHealth;
+    
     private void Awake()
     {
         
@@ -77,6 +80,11 @@ public class GameManager : MonoBehaviour
     public void respawn()
     {
         Debug.Log("RESPAWN CLICK!");
+        global_deathCounter++;
+        Debug.Log(global_deathCounter);
+        SceneManager.LoadScene(0);
+        UIManager.Instance.hideHealthUI(false);
+        playerHealth.setPlayerHealth(playerHealth.maxHealth);
     }
     private void SetupUI()
     {

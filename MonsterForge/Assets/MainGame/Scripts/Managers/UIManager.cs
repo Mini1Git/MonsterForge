@@ -112,10 +112,13 @@ public class UIManager : MonoBehaviour
 
     public void findNewHealthBars()
     {
-        
+
         healthBars = new List<HealthBar_UI>(
             FindObjectsByType<HealthBar_UI>(FindObjectsSortMode.None)
         );
+
+        
+        //kinda of a bug, the issue is that once respawned, theres an extra element.
         Debug.Log($"Found {healthBars.Count} health bars.");
 
     }
