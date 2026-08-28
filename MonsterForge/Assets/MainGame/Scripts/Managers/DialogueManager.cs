@@ -12,7 +12,7 @@ public class DialogueManager : MonoBehaviour
 
     PlayerInput playerInput;
     public InputAction interact;
-    bool doneOnCompleteEvents = false;
+    public bool doneOnCompleteEvents = false;
     public bool newScene = true;
     private void Awake()
     {
@@ -58,20 +58,36 @@ public class DialogueManager : MonoBehaviour
             DialogueStateManager.Instance.npcDialogueState_list.Add(npc.ID, npc.NPC_State);
             
         }
+        else if (GameManager.Instance.global_deathCounter > 0 && GameManager.Instance.respawned)
+        {
+            GameManager.Instance.respawned = false; // reset, so it should continue like normal.
+            //then we assume a reset happened. or Respawn.
+            DialogueStateManager.Instance.npcDialogueState_list.Clear();
+            indexDialogue = 0;
+
+            npc.NPC_State.state = DialogueState.hasNotStarted;
+            newScene = false;
+            currentNode = npc.startingNode;
+            DialogueStateManager.Instance.npcDialogueState_list.Add(npc.ID, npc.NPC_State);
+        }
         else
         {
-            
-            Debug.Log($"Already encountered {npc.ID}"); 
+
+            Debug.Log($"Already encountered {npc.ID}");
+            Debug.LogWarning(current_Npc.ID);
+
             if (!DialogueStateManager.Instance.npcDialogueState_list[npc.ID].wasInterrupted && newScene)
             {
                 //this is when it's a new scene while encountering same npc.
+
                 newScene = false;
                 currentNode = npc.startingNode;
                 indexDialogue = 0; // reset everything dialogue related.
             }
-            if (DialogueStateManager.Instance.npcDialogueState_list[npc.ID].wasInterrupted)
+            if (DialogueStateManager.Instance.npcDialogueState_list[npc.ID].wasInterrupted) // this checks if the npc got initially interrupted,
+                                                                                            // and swaps the current node with the interrupt node
             {
-                
+
                 currentNode = npc.interruptDialogueNode;
                 indexDialogue = 0;
             }
@@ -86,14 +102,17 @@ public class DialogueManager : MonoBehaviour
     {
         
         
-        if (indexDialogue >= currentNode.dialogueText.Count && currentNode.nextNode != null && !DialogueStateManager.Instance.npcDialogueState_list[current_Npc.ID].wasInterrupted)
+        if (indexDialogue >= currentNode.dialogueText.Count && currentNode.nextNode != null && 
+            !DialogueStateManager.Instance.npcDialogueState_list[current_Npc.ID].wasInterrupted)
         {
 
             Debug.Log("GOING TO NEXT NODE");
             currentNode = currentNode.nextNode;
             indexDialogue = 0;
             doneOnCompleteEvents = false;
+            DialogueStateManager.Instance.npcDialogueState_list[current_Npc.ID].state = DialogueState.hasNotStarted;
             //basically reset everything, so reset the index, completeEvents bool, and set currentNode to the next one.
+            // THIS HANDLES GOING TO NEXT DIALOGUE NODE.
         }
         
 
@@ -115,11 +134,14 @@ public class DialogueManager : MonoBehaviour
     public void goNextDialogue(InputAction.CallbackContext context) {
 
             displayDialogue();
-            
-        if (DialogueStateManager.Instance.npcDialogueState_list[current_Npc.ID].state == DialogueState.hasNotStarted 
-            || DialogueStateManager.Instance.npcDialogueState_list[current_Npc.ID].state == DialogueState.DoneTalking)
+
+        Debug.Log(DialogueStateManager.Instance.npcDialogueState_list[current_Npc.ID].state.ToString());
+        if (DialogueStateManager.Instance.npcDialogueState_list[current_Npc.ID].state == DialogueState.hasNotStarted)
         {
-            DialogueStateManager.Instance.setDialogueNPC_State(current_Npc, DialogueState.inProgress); // which means we already talked to them...
+            Debug.LogWarning("HAS NOT STARTED => IN PROGRESS");
+            DialogueStateManager.Instance.setDialogueNPC_State(current_Npc, DialogueState.inProgress); // which means we have not talked to them... in the new node.
+            doneOnCompleteEvents = false;
+            
         }
 
         handleInterruption();
@@ -177,14 +199,14 @@ public class DialogueManager : MonoBehaviour
     {
         bool done = false;
         //we should check if done the current node.
-        if (indexDialogue >= currentNode.dialogueText.Count && currentNode.nextNode != null)
+        if (indexDialogue >= currentNode.dialogueText.Count)
         {
             Debug.Log("DONE CURRENT NODE!");
             DialogueStateManager.Instance.npcDialogueState_list[current_Npc.ID].state = DialogueState.DoneTalking;
             
         }
-        if (currentNode.nextNode == null && indexDialogue >= currentNode.dialogueText.Count)
-        { // if fully exhausted dialogue for npc.
+        if (currentNode.nextNode == null && DialogueStateManager.Instance.npcDialogueState_list[current_Npc.ID].state == DialogueState.DoneTalking)
+        { // if fully exhausted dialogue for npc. After we've done the onCompleteEvents.
 
             Debug.Log($"Done dialogue for {current_Npc.ID}");
             current_Npc.textGameObj.text = currentNode.dialogueText[currentNode.dialogueText.Count - 1]; // just repeat last line. for now.
@@ -192,9 +214,9 @@ public class DialogueManager : MonoBehaviour
 
             done = true;
         }
-        if (!doneOnCompleteEvents && indexDialogue >= currentNode.dialogueText.Count)
+        if (!doneOnCompleteEvents && DialogueStateManager.Instance.npcDialogueState_list[current_Npc.ID].state == DialogueState.DoneTalking)
         { // if we haven't done the onComplete events yet, and we've reached the end of the dialogue.
-            Debug.Log("Going to oncompleteEvent");
+            Debug.LogWarning("Going to oncompleteEvent");
             OnCompleteEvents();
             doneOnCompleteEvents = true;
         }

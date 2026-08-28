@@ -1,29 +1,30 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    
+
     public static GameManager Instance;
     public GameObject player;
     public Weapon_SO currentWeapon;
     public float player_CurrentHealthGM;
     public int global_deathCounter = 0;
-
+    public bool respawned = false;
 
     [SerializeField]
     private BossAI boss;
     private PlayerHealth playerHealth;
-    
+
     private void Awake()
     {
-        
+
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
-        
+
         Instance = this;
         DontDestroyOnLoad(this.gameObject);
         findAndSetupPlayer();
@@ -32,7 +33,7 @@ public class GameManager : MonoBehaviour
     }
     private void Start()
     {
-       
+
     }
 
     private void PlayerHealth_playerDeath()
@@ -52,7 +53,7 @@ public class GameManager : MonoBehaviour
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
-        
+
 
     }
 
@@ -63,8 +64,8 @@ public class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        
-        
+
+
         // Call whatever function you want here
         findAndSetupPlayer();
         setupScene();
@@ -72,19 +73,24 @@ public class GameManager : MonoBehaviour
         Debug.Log("Loaded scene: " + scene.name);
 
 
-        
-        playerHealth.playerDeath += PlayerHealth_playerDeath;
-        
-    }
 
+        playerHealth.playerDeath += PlayerHealth_playerDeath;
+
+    }
+    
     public void respawn()
     {
+        respawned = true;
         Debug.Log("RESPAWN CLICK!");
         global_deathCounter++;
         Debug.Log(global_deathCounter);
+        GameObjectManager.Instance.showedOnce = false;
+        
         SceneManager.LoadScene(0);
         UIManager.Instance.hideHealthUI(false);
         playerHealth.setPlayerHealth(playerHealth.maxHealth);
+
+        
     }
     private void SetupUI()
     {

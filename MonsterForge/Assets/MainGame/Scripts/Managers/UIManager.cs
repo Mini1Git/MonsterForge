@@ -111,10 +111,10 @@ public class UIManager : MonoBehaviour
     }
 
     public void findNewHealthBars()
-    {
-
+    {/////////////////////////////////////// STILL DONT GET WHY THIS IS GETTING AN EXTRA NULL HPBAR AFTER RESPAWNING!!!!!!!!! WEIRD BUG.
+        healthBars.Clear();
         healthBars = new List<HealthBar_UI>(
-            FindObjectsByType<HealthBar_UI>(FindObjectsSortMode.None)
+            FindObjectsByType<HealthBar_UI>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)
         );
 
         
@@ -141,7 +141,8 @@ public class UIManager : MonoBehaviour
         {
             healthBars.Remove(bossBar);
         }
-        
+        healthBars.RemoveAll(item => item == null);// removes all the hpbars that are NULL.
+
     }
     //function to enable victory screen.
 }

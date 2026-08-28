@@ -10,7 +10,6 @@ public class Weapons_Picker : MonoBehaviour
     public List<GameObject> weapons;
 
     public Weapon_SO weaponEquipped;
-    public bool choseAWeapon;
     
     private void Start()
     {
@@ -30,18 +29,9 @@ public class Weapons_Picker : MonoBehaviour
         }
     }
 
-    public void Update()
-    {
-        if (weaponEquipped != null && choseAWeapon)
-        {
-            choseWeapon();
-            choseAWeapon = false; // so it only plays once.
-            
-        }
-    }
-
+    
     public void choseWeapon()
-    {
+    {   
         GameObjectManager.Instance.showWeaponContainer(false);
         GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerAttack>().EquipWeapon(weaponEquipped);
     }

@@ -8,7 +8,7 @@ public class GameObjectManager : MonoBehaviour
 
     public float arrowSpeed = 10;
     public float arrowDamage = 10;
-    bool showedOnce = false;
+    public bool showedOnce = false;
     private void Awake()
     {
         DontDestroyOnLoad(this.gameObject);

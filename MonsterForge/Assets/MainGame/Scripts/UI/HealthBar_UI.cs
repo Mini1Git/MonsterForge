@@ -16,18 +16,23 @@ public class HealthBar_UI : MonoBehaviour
     
     private void Awake()
     {
-        if (!isBossHealthBar)
+        if (isPlayer)
         {
-            isPlayer = true;
-            //we assume that the one missing is the player
+            isBossHealthBar = false;
             entity = GameObject.FindGameObjectWithTag("Player");
         }
-        entity_health = entity.GetComponent<Health_Component>().currentHealth;
-        
-            
-        hpBar = GetComponentInChildren<Slider>();
-        hpBar.value = entity_health / entity.GetComponent<Health_Component>().maxHealth;
+        if (entity != null)
+        {
+            entity_health = entity.GetComponent<Health_Component>().currentHealth;
 
+
+            hpBar = GetComponentInChildren<Slider>();
+            hpBar.value = entity_health / entity.GetComponent<Health_Component>().maxHealth;
+        }
+        else
+        {
+            Debug.Log("NULL found healtbar");
+        }
     }
 
     public void updateHealth() // this will update, the health in the hp bar.
