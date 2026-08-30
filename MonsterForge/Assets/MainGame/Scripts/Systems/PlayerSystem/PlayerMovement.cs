@@ -144,15 +144,18 @@ public class PlayerMovement : MonoBehaviour
     }
     public void Knockback(float force)
     {
-        if (kb == null)
+        if (gameObject.activeInHierarchy)
         {
-            if (isFacingRight)
+            if (kb == null)
             {
-                kb = StartCoroutine(KnockbackCoroutine(-force));
-            }
-            else
-            {
-                kb = StartCoroutine(KnockbackCoroutine(force));
+                if (isFacingRight)
+                {
+                    kb = StartCoroutine(KnockbackCoroutine(-force));
+                }
+                else
+                {
+                    kb = StartCoroutine(KnockbackCoroutine(force));
+                }
             }
         }
     }
