@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -34,13 +35,18 @@ public class Portal_Component : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player")){
+            textPrompt.SetActive(true);
             if (isUnlocked)
             {
-                textPrompt.SetActive(true);
+                textPrompt.GetComponent<TextMeshProUGUI>().text = "Go through the portal.";
                 animator.SetBool("playerNear", true);
             }
-            
-            interact.performed += Enter; // if click "e"
+            else
+            {
+                textPrompt.GetComponent<TextMeshProUGUI>().text = "The Portal refuses to open! Talk to Burow before heading out!";
+            }
+
+                interact.performed += Enter; // if click "e"
         }
         
     }
@@ -53,6 +59,7 @@ public class Portal_Component : MonoBehaviour
             {
                 animator.SetBool("playerNear", false);
             }
+            
             textPrompt.SetActive(false);
             interact.performed -= Enter;
 
@@ -68,10 +75,7 @@ public class Portal_Component : MonoBehaviour
             SceneManager.LoadScene(sceneName);
             
         }
-        else
-        {
-            Debug.Log("The Door is Locked! Talk to Burow before heading out!");
-        }
+        
     }
 
 }

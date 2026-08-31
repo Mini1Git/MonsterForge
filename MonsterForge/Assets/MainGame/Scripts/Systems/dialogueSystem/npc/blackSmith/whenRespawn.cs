@@ -3,6 +3,7 @@ using UnityEngine;
 public class whenRespawn : MonoBehaviour
 {
     public DialogueNode[] dialogueNodes;
+    public DialogueNode endNode;
     public int deathAmount = 0;
 
     private void Start()
@@ -15,6 +16,10 @@ public class whenRespawn : MonoBehaviour
             GameObject.FindGameObjectWithTag("Burow").GetComponent<NPCDialogue_Controller>().startingNode = dialogueNodes[deathAmount-1];
             
         }
-        Debug.Log($"STARTING BUROW NODE: {GameObject.FindGameObjectWithTag("Burow").GetComponent<NPCDialogue_Controller>().startingNode}");
+        else if (deathAmount > dialogueNodes.Length)
+        {
+            GameObject.FindGameObjectWithTag("Burow").GetComponent<NPCDialogue_Controller>().startingNode = endNode;
+        }
+            
     }
 }

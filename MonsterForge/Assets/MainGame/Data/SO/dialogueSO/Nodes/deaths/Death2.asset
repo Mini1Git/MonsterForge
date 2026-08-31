@@ -10,16 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a0bcd84ddd06e674cb12108c96baf4ff, type: 3}
-  m_Name: firstGreetings_burow
+  m_Name: Death2
   m_EditorClassIdentifier: Assembly-CSharp::DialogueNode
   character: Burow
   dialogueText:
-  - Hello
-  - Welcome to my shop
-  - i am Burow
-  - Pick yerself a weapon and test it on that dummy over there
-  nextNode: {fileID: 11400000, guid: dbb321f9e30b0af48a0a4dda59e2bb6f, type: 2}
+  - Bruh, again? How hard is the tutor?
+  - Hmmm, just...try again.
+  - I'll be waiting...
+  nextNode: {fileID: 0}
   onComplete:
+  - {fileID: 11400000, guid: 4ef531b838877cd4daf0b7ff032f550c, type: 2}
   - {fileID: 11400000, guid: 4045125763abeef4585818d3ddaef4c9, type: 2}
-  - {fileID: 11400000, guid: 2fbb76e97495e3f468f296a9c2e8dad6, type: 2}
   - {fileID: 11400000, guid: 21ce49191e1a2e64086bab2b290b0563, type: 2}

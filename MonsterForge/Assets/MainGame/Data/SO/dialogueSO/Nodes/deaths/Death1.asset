@@ -12,7 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0bcd84ddd06e674cb12108c96baf4ff, type: 3}
   m_Name: Death1
   m_EditorClassIdentifier: Assembly-CSharp::DialogueNode
-  character: 
-  dialogueText: []
+  character: Burow
+  dialogueText:
+  - Damn, u died boi
+  - Select a new weapon if you want...or don't
+  - Go at it again.
   nextNode: {fileID: 0}
-  onComplete: []
+  onComplete:
+  - {fileID: 11400000, guid: 4ef531b838877cd4daf0b7ff032f550c, type: 2}
+  - {fileID: 11400000, guid: 4045125763abeef4585818d3ddaef4c9, type: 2}
+  - {fileID: 11400000, guid: 21ce49191e1a2e64086bab2b290b0563, type: 2}

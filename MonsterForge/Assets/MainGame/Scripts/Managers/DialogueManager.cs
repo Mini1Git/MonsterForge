@@ -73,6 +73,9 @@ public class DialogueManager : MonoBehaviour
         else
         {
 
+            
+
+
             Debug.Log($"Already encountered {npc.ID}");
             Debug.LogWarning(current_Npc.ID);
 
@@ -82,7 +85,20 @@ public class DialogueManager : MonoBehaviour
 
                 newScene = false;
                 currentNode = npc.startingNode;
+                Debug.LogWarning($"{currentNode.name} + {currentNode.dialogueText.Count}");///???????????????
                 indexDialogue = 0; // reset everything dialogue related.
+                foreach (var (key, value) in DialogueStateManager.Instance.npcDialogueState_list)
+                {
+                    Debug.LogWarning($"{key}, {value.state}");
+                }
+                
+                DialogueStateManager.Instance.setDialogueNPC_State(current_Npc, DialogueState.hasNotStarted);
+
+                foreach (var (key, value) in DialogueStateManager.Instance.npcDialogueState_list)
+                {
+                    Debug.LogWarning($"{key}, {value.state}");
+                }
+
             }
             if (DialogueStateManager.Instance.npcDialogueState_list[npc.ID].wasInterrupted) // this checks if the npc got initially interrupted,
                                                                                             // and swaps the current node with the interrupt node
@@ -95,6 +111,7 @@ public class DialogueManager : MonoBehaviour
             {
                 checkDialogueNode();
             }
+
         }
         
     }
@@ -207,8 +224,8 @@ public class DialogueManager : MonoBehaviour
         }
         if (currentNode.nextNode == null && DialogueStateManager.Instance.npcDialogueState_list[current_Npc.ID].state == DialogueState.DoneTalking)
         { // if fully exhausted dialogue for npc. After we've done the onCompleteEvents.
-
-            Debug.Log($"Done dialogue for {current_Npc.ID}");
+            
+            Debug.LogWarning($"Done dialogue for {current_Npc.ID}"); // bug is after you beat the boss, Burow just does last line for some reason.
             current_Npc.textGameObj.text = currentNode.dialogueText[currentNode.dialogueText.Count - 1]; // just repeat last line. for now.
             DialogueStateManager.Instance.setDialogueNPC_State(current_Npc, DialogueState.DoneTalking);
 
