@@ -20,4 +20,5 @@ MonoBehaviour:
   - Hahaha! Nice, I thought a weakling like you wouldn't been able to!
   - You...are getting stronger.
   nextNode: {fileID: 0}
-  onComplete: []
+  onComplete:
+  - {fileID: 11400000, guid: 18ee7c973d891ec4a922fc180434a986, type: 2}

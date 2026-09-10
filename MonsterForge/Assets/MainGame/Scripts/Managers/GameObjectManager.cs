@@ -7,7 +7,7 @@ public class GameObjectManager : MonoBehaviour
     public GameObject weaponContainer;
 
     public float arrowSpeed = 10;
-    public float arrowDamage = 10;
+    
     public bool showedOnce = false;
     private void Awake()
     {

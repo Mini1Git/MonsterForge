@@ -28,11 +28,11 @@ public class UIManager : MonoBehaviour
         }
         DontDestroyOnLoad(this.gameObject);
         Instance = this;
-        playerDeath_UI = GameObject.FindGameObjectWithTag("playerDeathUI");
+        
     }
     public void Start()
     {
-       
+        playerDeath_UI = GameObject.FindGameObjectWithTag("playerDeathUI");
         if (healthBars.Count == 0)
         {
             Debug.LogWarning("There are no healthbars! Add one to the list in UI Manager!");
@@ -81,8 +81,12 @@ public class UIManager : MonoBehaviour
         {
             Debug.Log("Cannot find player death UI");
         }
-        playerDeath_UI.GetComponent<CanvasGroup>().interactable = false;
-        playerDeath_UI.transform.position = new Vector2(10000,oldTransform.position.y); // move out of the way lol.
+        else
+        {
+            playerDeath_UI.GetComponent<CanvasGroup>().interactable = false;
+            playerDeath_UI.transform.position = new Vector2(10000, oldTransform.position.y); // move out of the way lol.
+        }
+           
     }
     public void hideHealthUI(bool hide) // tho this hides all HEALTHBARS. Good for cutscenes.
     {

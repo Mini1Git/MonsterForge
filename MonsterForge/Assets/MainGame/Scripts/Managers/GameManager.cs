@@ -11,7 +11,9 @@ public class GameManager : MonoBehaviour
     public float player_CurrentHealthGM;
     public int global_deathCounter = 0;
     public bool respawned = false;
-
+    public bool defeatedBoss = false;
+    public bool bossPhase2 = false;
+    public bool playerDeath = false;
     [SerializeField]
     private BossAI boss;
     private PlayerHealth playerHealth;
@@ -29,6 +31,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
         findAndSetupPlayer();
         boss = GameObject.FindAnyObjectByType<BossAI>();
+        
         player_CurrentHealthGM = playerHealth.maxHealth;
     }
     private void Start()
@@ -47,8 +50,16 @@ public class GameManager : MonoBehaviour
     public void findAndSetupPlayer()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        playerHealth = player.GetComponent<PlayerHealth>();
-        playerHealth.currentHealth = player_CurrentHealthGM; // keep track of player's hp.
+        if (player == null)
+        {
+            Debug.Log("This must be end credits!");
+        }
+        else
+        {
+            playerHealth = player.GetComponent<PlayerHealth>();
+            playerHealth.currentHealth = player_CurrentHealthGM; // keep track of player's hp.
+        }
+            
     }
     private void OnEnable()
     {
@@ -80,7 +91,9 @@ public class GameManager : MonoBehaviour
     
     public void respawn()
     {
+        playerDeath = false;
         respawned = true;
+        bossPhase2 = false;
         Debug.Log("RESPAWN CLICK!");
         global_deathCounter++;
         Debug.Log(global_deathCounter);
@@ -136,8 +149,17 @@ public class GameManager : MonoBehaviour
     private void playerWonFight()
     {
         Debug.LogWarning("You won the fight!");
+        defeatedBoss = true;
         UIManager.Instance.bossFightEnd();
     }
-    
+    public void loadCredits()
+    {
+        StartCoroutine(endGame());
+    }
+    private IEnumerator endGame()
+    {
+        yield return new WaitForSeconds(3);
+        SceneManager.LoadScene("endCredits");
+    }
 
 }

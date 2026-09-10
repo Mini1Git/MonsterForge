@@ -15,6 +15,7 @@ public class Decision_State : Boss_State
         if (bossAI.health.currentHealth < bossAI.healthTolerance && !bossAI.healed)
         {
             bossAI.healed = true;
+            GameManager.Instance.bossPhase2 = true;
             bossAI.changeState(new Heal_State(bossAI));
             return;
         }

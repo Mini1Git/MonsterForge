@@ -48,11 +48,11 @@ public class arrowLogic : MonoBehaviour
             GetComponent<BoxCollider2D>().enabled = false;
             if (collision.CompareTag("dummy"))
             {
-                collision.GetComponent<Health_Component>().damageEntity(1);
+                collision.GetComponent<Health_Component>().damageEntity(GameManager.Instance.currentWeapon.damage);
             }
             else if (collision.CompareTag("Boss"))
             {
-                collision.GetComponent<BossAI>().TakeDamage(GameObjectManager.Instance.arrowDamage);
+                collision.GetComponent<BossAI>().TakeDamage(GameManager.Instance.currentWeapon.damage); 
                 GameObject.Destroy(gameObject);
                 return;
             }

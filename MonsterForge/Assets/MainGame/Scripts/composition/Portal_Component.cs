@@ -42,8 +42,15 @@ public class Portal_Component : MonoBehaviour
                 animator.SetBool("playerNear", true);
             }
             else
-            {
-                textPrompt.GetComponent<TextMeshProUGUI>().text = "The Portal refuses to open! Talk to Burow before heading out!";
+            {   
+                if (!GameManager.Instance.defeatedBoss)
+                {
+                    textPrompt.GetComponent<TextMeshProUGUI>().text = "The Portal refuses to open! Talk to Burow before heading out!";
+                }
+                else
+                {
+                    textPrompt.GetComponent<TextMeshProUGUI>().text = null;
+                }
             }
 
                 interact.performed += Enter; // if click "e"

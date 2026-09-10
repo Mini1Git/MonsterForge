@@ -303,7 +303,7 @@ public abstract class BossAI : MonoBehaviour
 
     [SerializeField]
     protected soulBoss bossSoul;
-    [Tooltip("Usually it's 'BlackSmith_{Boss Name}'")]
+    [Tooltip("It's 'BlackSmith_{Boss Name}'")]
     public string bossSoulScene;
     protected SpriteRenderer spriteRenderer;
     protected Boss_State currentState; // protected means only children and this class can use.

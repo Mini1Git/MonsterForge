@@ -9,6 +9,7 @@ public class PlayerDeath_State : Boss_State
     public override void EnterState()
     {
         //do nothing
+        GameManager.Instance.playerDeath = true;
         Debug.Log("BOSS IS DOING NOTHING!");
     }
 }
