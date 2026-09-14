@@ -38,11 +38,20 @@ public class Portal_Component : MonoBehaviour
             textPrompt.SetActive(true);
             if (isUnlocked)
             {
-                textPrompt.GetComponent<TextMeshProUGUI>().text = "Go through the portal.";
-                animator.SetBool("playerNear", true);
+                if (GameManager.Instance.currentWeapon != null)
+                {
+                    interact.performed += Enter; // if click "e"
+                    textPrompt.GetComponent<TextMeshProUGUI>().text = "Go through the portal.";
+                    animator.SetBool("playerNear", true);
+                }
+                else
+                {
+                    textPrompt.GetComponent<TextMeshProUGUI>().text = "Choose a weapon before heading out!";
+                }
+                
             }
             else
-            {   
+            {
                 if (!GameManager.Instance.defeatedBoss)
                 {
                     textPrompt.GetComponent<TextMeshProUGUI>().text = "The Portal refuses to open! Talk to Burow before heading out!";
@@ -53,7 +62,6 @@ public class Portal_Component : MonoBehaviour
                 }
             }
 
-                interact.performed += Enter; // if click "e"
         }
         
     }

@@ -298,7 +298,8 @@ public abstract class BossAI : MonoBehaviour
     public float healthTolerance = 50;
     public bool healed = false;
     public float maxDistanceToPlayer = 3;
-    public Vector2 attackPos;
+    
+    public Transform posSoulOrb;
     public bool facingRight_Bool = false;
 
     [SerializeField]
@@ -347,7 +348,8 @@ public abstract class BossAI : MonoBehaviour
         if (!spawnedSoulOrb)
         {
             spawnedSoulOrb = true;
-            Instantiate(bossSoul, transform);
+            posSoulOrb.transform.position = new Vector2(posSoulOrb.position.x, transform.position.y);
+            Instantiate(bossSoul, posSoulOrb);
             bossSoul.sceneName = bossSoulScene;
         }
     }

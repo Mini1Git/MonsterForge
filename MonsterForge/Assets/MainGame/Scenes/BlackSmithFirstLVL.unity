@@ -903,6 +903,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d30841d7eaafa941a9c799ffafd5b9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
+  audioSource: {fileID: 0}
+  phase2: {fileID: 0}
+  playerDeath: {fileID: 0}
+  toggleOneShot: 0
 --- !u!1 &903951968
 GameObject:
   m_ObjectHideFlags: 0
@@ -1066,7 +1070,10 @@ MonoBehaviour:
   dialogueNodes:
   - {fileID: 11400000, guid: ae4172098edba864d9e544006ca6f79c, type: 2}
   - {fileID: 11400000, guid: 35ad39c011338624f82f35fd81b6a930, type: 2}
-  endNode: {fileID: 0}
+  - {fileID: 11400000, guid: 693881bde73ba0649902941229d18fb0, type: 2}
+  - {fileID: 11400000, guid: b9d477aa31d989c4a844c94bc9419164, type: 2}
+  - {fileID: 11400000, guid: bf6e62bcb2bf1ca45aec1b560f317d22, type: 2}
+  endNode: {fileID: 11400000, guid: 6e24c7c5b88e21c4785e74592a9964ac, type: 2}
   deathAmount: 0
 --- !u!114 &1188958667 stripped
 MonoBehaviour:
@@ -2093,6 +2100,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 303422542099182783, guid: e552b4aa58abdf14d940d3aeae2e9527, type: 3}
+      propertyPath: currentWeapon
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2233706841428738026, guid: e552b4aa58abdf14d940d3aeae2e9527, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.00365

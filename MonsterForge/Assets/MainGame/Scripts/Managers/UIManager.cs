@@ -92,6 +92,7 @@ public class UIManager : MonoBehaviour
     {
         if (hide)
         {
+            Debug.LogWarning("HIDDEN HEALHTBARS");
             foreach (HealthBar_UI healthBar in healthBars)
             {
                 healthBar.gameObject.SetActive(false);
@@ -115,7 +116,7 @@ public class UIManager : MonoBehaviour
     }
 
     public void findNewHealthBars()
-    {/////////////////////////////////////// STILL DONT GET WHY THIS IS GETTING AN EXTRA NULL HPBAR AFTER RESPAWNING!!!!!!!!! WEIRD BUG.
+    {
         healthBars.Clear();
         healthBars = new List<HealthBar_UI>(
             FindObjectsByType<HealthBar_UI>(FindObjectsInactive.Exclude, FindObjectsSortMode.None)

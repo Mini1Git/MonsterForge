@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 687737894053383314}
   - component: {fileID: 3183091467824789211}
   - component: {fileID: 4588520152684386818}
+  - component: {fileID: -7518161686800523453}
   m_Layer: 0
   m_Name: soulBoss
   m_TagString: Untagged
@@ -291,6 +292,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::soulBoss
   sceneName: BlackSmith_FirstBoss
   textPrompt: {fileID: 5007966368445045345}
+--- !u!95 &-7518161686800523453
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4772072273780814632}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 2ae7e7d23b5b90045ba1dd7c3655113b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5007966368445045345
 GameObject:
   m_ObjectHideFlags: 0
